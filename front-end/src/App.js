@@ -1,37 +1,25 @@
-import { useEffect, useState } from "react";
 import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import Dashboard from "./Dashboard/index.js";
+import Homepage from "./Homepage/index.js";
+import Login from "./Login/index.js";
+import PrivateRoute from "./PrivateRoute/index.js";
 
 function App() {
-  const [jwt, setJwt] = useState("");
-
-  useEffect(() => {
-    const reqBody = {
-      username: "mihai",
-      password: "12345678",
-    };
-
-    fetch("api/auth/login", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "post",
-      body: JSON.stringify(reqBody),
-    })
-      .then((response) => Promise.all([response.json(), response.headers]))
-      .then(([body, headers]) => {
-        setJwt(headers.get("authorization"));
-      });
-  }, []);
-
-  useEffect(() => {
-    console.log(`JWT is ${jwt}`);
-  }, [jwt]);
 
   return (
-    <div className="App">
-      <h1>Hello There</h1>
-      <div> JWT value is: {jwt}</div>
-    </div>
+    <Routes>
+      <Route
+        path="/dashboard"
+        element={
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        }
+      />
+      <Route path="/" element={<Homepage />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
   );
 }
 
