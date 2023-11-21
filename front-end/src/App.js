@@ -4,9 +4,9 @@ import Dashboard from "./Dashboard/index.js";
 import Homepage from "./Homepage/index.js";
 import Login from "./Login/index.js";
 import PrivateRoute from "./PrivateRoute/index.js";
+import AssignmentView from "./AssignmentView/index.js";
 
 function App() {
-
   return (
     <Routes>
       <Route
@@ -14,6 +14,14 @@ function App() {
         element={
           <PrivateRoute>
             <Dashboard />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/assignments/:id"
+        element={
+          <PrivateRoute>
+            <AssignmentView />
           </PrivateRoute>
         }
       />
