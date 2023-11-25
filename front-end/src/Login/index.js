@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocalState } from "../util/useLocalStorage";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -38,44 +38,59 @@ const Login = () => {
 
   return (
     <>
-      <Container>
-        <Row>
-          <Col>
-            <div>
-              <label htmlFor="username">Username</label>
-              <input
+      <Container className="mt-5">
+        <Row className="justify-content-center">
+          <Col md="6">
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label className="fs-4">Username </Form.Label>
+              <Form.Control
+                placeholder="joe@example.com"
+                size="lg"
                 type="email"
-                id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
-            </div>
+        </Form.Group>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <div>
-              <label htmlFor="password">Password</label>
-              <input
+        <Row className="justify-content-center">
+          <Col md="6">
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label className="fs-4">Password</Form.Label>
+              <Form.Control
+                placeholder="Enter your password"
+                size="lg"
                 type="password"
-                id="password"
                 value={password}
                 onChange={(e) => setpassword(e.target.value)}
               />
-            </div>
+          </Form.Group>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <div>
+        <Row className="justify-content-center">
+          <Col
+           md="8"
+           lg="6"
+           className="mt-2 d-flex flex-column gap-5 flex-md-row justify-content-md-between">
               <Button
+                size="lg"
                 id="submit"
                 type="button"
                 onClick={() => sendLoginRequest()}
               >
                 Login
               </Button>
-            </div>
+              <Button
+                variant="secondary"
+                size="lg"
+                id="submit"
+                type="button"
+                onClick={() => {
+                  window.location.href = "/"
+                }}
+              >
+                Exit
+              </Button>
           </Col>
         </Row>
       </Container>
