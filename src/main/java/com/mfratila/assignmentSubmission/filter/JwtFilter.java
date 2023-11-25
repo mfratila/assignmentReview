@@ -42,7 +42,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         final String token = header.split(" ")[1].trim();
 
-        // Get user identity and set it n the spring security context
+        // Get user identity and set it in the spring security context
         UserDetails userDetails = userRepository
                 .findByUsername(jwtUtil.getUsernameFromToken(token))
                 .orElse(null);

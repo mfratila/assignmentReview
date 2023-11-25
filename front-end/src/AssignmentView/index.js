@@ -1,50 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { useLocalState } from "../util/useLocalStorage";
+import ajax from "../Services/fetchService";
 
 const AssignmentView = () => {
   const [jwt, setJwt] = useLocalState("", "jwt");
   const assignmentId = window.location.href.split("/assignments/")[1];
   const [assignment, setAssignment] = useState({
     githubUrl: "",
-    branch: ""
+    branch: "",
   });
 
   function updateAssignment(prop, value) {
-    const newAssignment = {...assignment};
+    const newAssignment = { ...assignment };
     newAssignment[prop] = value;
     setAssignment(newAssignment);
   }
 
   function save() {
-    fetch(`/api/assignments/${assignmentId}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${jwt}`,
-      },
-      method: "PUT",
-      body: JSON.stringify(assignment)
-    }).then(response => {
-      if (response.status === 200) return response.json();
-  })
-  .then((assignmentData) => {
-    setAssignment(assignmentData);
-  });
-}
+    ajax(`/api/assignments/${assignmentId}`, "PUT", jwt, assignment).then(
+      (assignmentData) => {
+        setAssignment(assignmentData);
+      }
+    );
+  }
 
   useEffect(() => {
-    fetch(`/api/assignments/${assignmentId}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${jwt}`,
-      },
-      method: "GET",
-    })
-      .then((response) => {
-        if (response.status === 200) return response.json();
-      })
-      .then((assignmentData) => {
+    ajax(`/api/assignments/${assignmentId}`, "GET", jwt).then(
+      (assignmentData) => {
+        if (assignmentData.githubUrl === null) assignmentData.githubUrl = "";
+        if (assignmentData.branch === null) assignmentData.branch = "";
         setAssignment(assignmentData);
-      });
+      }
+    );
   }, []);
 
   return (
@@ -59,7 +46,7 @@ const AssignmentView = () => {
               type="url"
               id="gitHubUrl"
               onChange={(e) => updateAssignment("githubUrl", e.target.value)}
-              value = {assignment.githubUrl}
+              value={assignment.githubUrl}
             />
           </h3>
           <h3>
