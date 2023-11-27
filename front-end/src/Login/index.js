@@ -41,7 +41,7 @@ const Login = () => {
       <Container className="mt-5">
         <Row className="justify-content-center">
           <Col md="6">
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label className="fs-4">Username </Form.Label>
               <Form.Control
                 placeholder="joe@example.com"
@@ -50,12 +50,12 @@ const Login = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
-        </Form.Group>
+            </Form.Group>
           </Col>
         </Row>
         <Row className="justify-content-center">
           <Col md="6">
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label className="fs-4">Password</Form.Label>
               <Form.Control
                 placeholder="Enter your password"
@@ -64,33 +64,34 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setpassword(e.target.value)}
               />
-          </Form.Group>
+            </Form.Group>
           </Col>
         </Row>
         <Row className="justify-content-center">
           <Col
-           md="8"
-           lg="6"
-           className="mt-2 d-flex flex-column gap-5 flex-md-row justify-content-md-between">
-              <Button
-                size="lg"
-                id="submit"
-                type="button"
-                onClick={() => sendLoginRequest()}
-              >
-                Login
-              </Button>
-              <Button
-                variant="secondary"
-                size="lg"
-                id="submit"
-                type="button"
-                onClick={() => {
-                  window.location.href = "/"
-                }}
-              >
-                Exit
-              </Button>
+            md="8"
+            lg="6"
+            className="mt-2 d-flex flex-column gap-5 flex-md-row justify-content-md-between"
+          >
+            <Button
+              size="lg"
+              id="submit"
+              type="button"
+              onClick={() => sendLoginRequest()}
+            >
+              Login
+            </Button>
+            <Button
+              variant="secondary"
+              size="lg"
+              id="submit"
+              type="button"
+              onClick={() => {
+                window.location.href = "/";
+              }}
+            >
+              Exit
+            </Button>
           </Col>
         </Row>
       </Container>
