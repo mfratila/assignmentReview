@@ -2,6 +2,7 @@ package com.mfratila.assignmentSubmission.web;
 
 import com.mfratila.assignmentSubmission.domain.Assignment;
 import com.mfratila.assignmentSubmission.domain.User;
+import com.mfratila.assignmentSubmission.dto.AssignmentResponseDto;
 import com.mfratila.assignmentSubmission.service.AssignmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,8 @@ public class AssignmentController {
     @GetMapping("/{assignmentId}")
     public ResponseEntity<?> getAssignment(@PathVariable Long assignmentId, @AuthenticationPrincipal User user) {
         Optional<Assignment> assignmentOptional = assignmentService.findById(assignmentId);
-        return ResponseEntity.ok(assignmentOptional.orElse(new Assignment()));
+        AssignmentResponseDto response = new AssignmentResponseDto(assignmentOptional.orElse(new Assignment()));
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{assignmentId}")
