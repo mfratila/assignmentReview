@@ -2,6 +2,7 @@ package com.mfratila.assignmentSubmission.service;
 
 import com.mfratila.assignmentSubmission.domain.Assignment;
 import com.mfratila.assignmentSubmission.domain.User;
+import com.mfratila.assignmentSubmission.enums.AssignmentStatusEnum;
 import com.mfratila.assignmentSubmission.repository.AssignmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class AssignmentService {
 
     public Assignment save(User user) {
         Assignment assignment = new Assignment();
-        assignment.setStatus("Needs to be Submitted");
+        assignment.setStatus(AssignmentStatusEnum.PENDING_SUBMISSION.getStatus());
         assignment.setUser(user);
 
         return assignmentRepository.save(assignment);

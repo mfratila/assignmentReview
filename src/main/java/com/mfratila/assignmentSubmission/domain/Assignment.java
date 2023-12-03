@@ -27,7 +27,7 @@ public class Assignment {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Integer getName() {
+	public Integer getNumber() {
 		return number;
 	}
 	public void setNumber(Integer number) {
