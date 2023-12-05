@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocalState } from "../util/useLocalStorage";
 import ajax from "../Services/fetchService";
 import {
@@ -25,32 +25,36 @@ const AssignmentView = () => {
   const [assignmentEnums, setAssignmentEnums] = useState([]);
   const [assignmentStatuses, setAssignmentStatuses] = useState([]);
 
-  async function updateAssignment(prop, value) {
-    return new Promise((resolve) => {
+  const previousAssignmentValue = useRef(assignment);
+
+  function updateAssignment(prop, value) {
       const newAssignment = { ...assignment };
       newAssignment[prop] = value;
       setAssignment(newAssignment);
-      resolve(newAssignment);
-      console.log(`Updated assignment: ${newAssignment.githubUrl} ${newAssignment.branch} ${newAssignment.number} ${newAssignment.status}`);
-    });
   }
 
   async function save() {
     // this implies that the student is submitting the assignment for the first time
-    console.log(`Status is ${assignment.status}`);
-    let updatedAssignment = assignment;
     if (assignment.status === assignmentStatuses[0].status) {
-      console.log("setting new status to be");
-      updatedAssignment = await updateAssignment("status", assignmentStatuses[1].status);
-      console.log(`Current status: ${updatedAssignment.status}`);
+      updateAssignment("status", assignmentStatuses[1].status);
+    } else {
+      persist();
     }
-    console.log("executing ajax");
-    ajax(`/api/assignments/${assignmentId}`, "PUT", jwt, updatedAssignment).then(
+  }
+
+  function persist() {
+    ajax(`/api/assignments/${assignmentId}`, "PUT", jwt, assignment).then(
       (assignmentData) => {
         setAssignment(assignmentData);
-      }
-    );
+      });
   }
+
+  useEffect(() => {
+    if (previousAssignmentValue.current.status !== assignment.status) {
+      persist();
+    }
+    previousAssignmentValue.current = assignment;
+  }, [assignment])
 
   useEffect(() => {
     ajax(`/api/assignments/${assignmentId}`, "GET", jwt).then(
@@ -61,7 +65,6 @@ const AssignmentView = () => {
         setAssignment(assignmentData);
         setAssignmentEnums(assignmentResponse.assignmentEnums);
         setAssignmentStatuses(assignmentResponse.statusEnums);
-        console.log(assignmentResponse.statusEnums);
       }
     );
   }, []);
@@ -134,9 +137,15 @@ const AssignmentView = () => {
               />
             </Col>
           </Form.Group>
+          <div className="d-flex gap-5">
           <Button size="lg" onClick={() => save()}>
             Submit Assignment
           </Button>
+          <Button size="lg" variant="secondary" onClick={() => 
+          window.location.href = "/dashboard"}>
+            Back
+          </Button>
+          </div>
         </>
       ) : (
         <></>
