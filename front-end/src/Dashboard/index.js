@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocalState } from "../util/useLocalStorage";
 import { Link } from "react-router-dom";
 import ajax from "../Services/fetchService";
-import { Badge, Button, Card } from "react-bootstrap";
+import { Badge, Button, Card, Col, Row } from "react-bootstrap";
 
 const Dashboard = () => {
   const [jwt, setJwt] = useLocalState("", "jwt");
@@ -22,6 +22,16 @@ const Dashboard = () => {
 
   return (
     <div style={{ margin: "2em" }}>
+      <Row>
+        <Col>
+          <div className="d-flex justify-content-end" onClick={() => {
+            setJwt(null)
+            window.location.href = "/login"
+            }}>
+            Logout
+          </div>
+        </Col>
+      </Row>
       <div className="mb-4">
         <Button size="lg" onClick={() => createAssignment()}>
           Submit New Assignment
@@ -33,7 +43,7 @@ const Dashboard = () => {
           style={{ gridTemplateColumns: "repeat(auto-fill, 18rem)" }}
         >
           {assignments.map((assignment) => (
-            <Card style={{ width: "18rem" }}>
+            <Card key={assignment.id} style={{ width: "18rem" }}>
               <Card.Body className="d-flex flex-column justify-content-around">
                 <Card.Title>Assignment #{assignment.number}</Card.Title>
                 <div className="d-flex align-items-start">
