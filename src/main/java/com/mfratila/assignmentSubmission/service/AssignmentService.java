@@ -3,6 +3,7 @@ package com.mfratila.assignmentSubmission.service;
 import com.mfratila.assignmentSubmission.domain.Assignment;
 import com.mfratila.assignmentSubmission.domain.User;
 import com.mfratila.assignmentSubmission.enums.AssignmentStatusEnum;
+import com.mfratila.assignmentSubmission.enums.AuthorityEnum;
 import com.mfratila.assignmentSubmission.repository.AssignmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +47,17 @@ public class AssignmentService {
     }
 
     public Set<Assignment> findByUser(User user) {
-        return assignmentRepository.findByUser(user);
+        // load assignments if you're a code reviewer role
+        boolean hasCodeReviewerRole = user.getAuthorities()
+                .stream()
+                .anyMatch(auth -> AuthorityEnum.ROLE_CODE_REVIEWER.name().equals(auth.getAuthority()));
+        if (hasCodeReviewerRole) {
+            return assignmentRepository.findByCodeReviewer(user);
+        } else {
+            // load assignments if you're a student role
+            return assignmentRepository.findByUser(user);
+        }
+
     }
 
     public Optional<Assignment> findById(Long assignmentId) {
