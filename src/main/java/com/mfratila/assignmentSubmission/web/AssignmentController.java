@@ -3,7 +3,10 @@ package com.mfratila.assignmentSubmission.web;
 import com.mfratila.assignmentSubmission.domain.Assignment;
 import com.mfratila.assignmentSubmission.domain.User;
 import com.mfratila.assignmentSubmission.dto.AssignmentResponseDto;
+import com.mfratila.assignmentSubmission.enums.AuthorityEnum;
 import com.mfratila.assignmentSubmission.service.AssignmentService;
+import com.mfratila.assignmentSubmission.service.UserService;
+import com.mfratila.assignmentSubmission.util.AuthorityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,6 +21,8 @@ public class AssignmentController {
 
     @Autowired
     private AssignmentService assignmentService;
+    @Autowired
+    private UserService userService;
 
     @PostMapping("")
     public ResponseEntity<?> createAssignment(@AuthenticationPrincipal User user) {
@@ -43,6 +48,15 @@ public class AssignmentController {
     public ResponseEntity<?> updateAssignment(@PathVariable Long assignmentId,
                                               @RequestBody Assignment assignment,
                                               @AuthenticationPrincipal User user) {
+        // add code reviewer to this assignment if it was claimed
+        if (assignment.getCodeReviewer() != null) {
+            User codeReviewer = assignment.getCodeReviewer();
+            codeReviewer = userService.findUserByUsername(codeReviewer.getUsername()).orElse(new User());
+
+            if (AuthorityUtil.hasRole(AuthorityEnum.ROLE_CODE_REVIEWER.name(), codeReviewer)) {
+                assignment.setCodeReviewer(codeReviewer);
+            }
+        }
         Assignment updatedAssignment = assignmentService.save(assignment);
         return ResponseEntity.ok(updatedAssignment);
     }

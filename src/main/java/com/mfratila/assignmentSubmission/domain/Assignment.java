@@ -19,7 +19,9 @@ public class Assignment {
 	private String codeReviewVideoUrl;
 	@ManyToOne(optional = false)
 	private User user;
-	// TODO: create private User assignedTo;
+	@ManyToOne()
+	private User codeReviewer;
+
 	
 	public Long getId() {
 		return id;
@@ -62,6 +64,12 @@ public class Assignment {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public User getCodeReviewer() {
+		return codeReviewer;
+	}
+	public void setCodeReviewer(User codeReviewer) {
+		this.codeReviewer = codeReviewer;
 	}
 	
 }

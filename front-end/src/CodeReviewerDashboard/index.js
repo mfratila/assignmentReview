@@ -3,6 +3,7 @@ import { useLocalState } from "../util/useLocalStorage";
 import { Link } from "react-router-dom";
 import ajax from "../Services/fetchService";
 import { Badge, Button, Card, Col, Container, Row } from "react-bootstrap";
+import { jwtDecode } from "jwt-decode";
 
 const CodeReviewerDashboard = () => {
   const [jwt, setJwt] = useLocalState("", "jwt");
@@ -14,9 +15,20 @@ const CodeReviewerDashboard = () => {
     });
   }, []);
 
-  function createAssignment() {
-    ajax("/api/assignments", "POST", jwt).then((assignment) => {
-      window.location.href = `/assignments/${assignment.id}`;
+  function claimAssignment(assignment) {
+    const decodedJwt = jwtDecode(jwt);
+    const user = {
+      username: decodedJwt.sub,
+    }
+    assignment.codeReviewer = user;
+    // TODO: update hardcoded value
+    assignment.status = "In Review";
+    ajax(`/api/assignments/${assignment.id}`, "PUT", jwt, assignment).then((updatedAssignment) => {
+      //TODO: update the view for the assignment that changed
+      const assignmentsCopy = [...assignments];
+      const i = assignmentsCopy.find(a => a.id === assignment.id);
+      assignmentsCopy[i] = updatedAssignment;
+      setAssignments(assignmentsCopy);
     });
   }
 
@@ -79,10 +91,10 @@ const CodeReviewerDashboard = () => {
                   <Button
                     variant="secondary"
                     onClick={() => {
-                      window.location.href = `/assignments/${assignment.id}`;
+                      claimAssignment(assignment);
                     }}
                   >
-                    Edit
+                    Claim
                   </Button>
                 </Card.Body>
               </Card>
