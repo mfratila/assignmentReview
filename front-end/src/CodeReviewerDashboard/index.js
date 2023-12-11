@@ -24,7 +24,6 @@ const CodeReviewerDashboard = () => {
     // TODO: update hardcoded value
     assignment.status = "In Review";
     ajax(`/api/assignments/${assignment.id}`, "PUT", jwt, assignment).then((updatedAssignment) => {
-      //TODO: update the view for the assignment that changed
       const assignmentsCopy = [...assignments];
       const i = assignmentsCopy.find(a => a.id === assignment.id);
       assignmentsCopy[i] = updatedAssignment;
