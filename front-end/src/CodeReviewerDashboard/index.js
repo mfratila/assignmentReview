@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useLocalState } from "../util/useLocalStorage";
-import { Link } from "react-router-dom";
 import ajax from "../Services/fetchService";
 import { Badge, Button, Card, Col, Container, Row } from "react-bootstrap";
 import { jwtDecode } from "jwt-decode";
@@ -31,6 +30,10 @@ const CodeReviewerDashboard = () => {
         setAssignments(assignmentsCopy);
       }
     );
+  }
+
+  function editReview(assignment) {
+    window.location.href = `/assignments/${assignment.id}`;
   }
 
   return (
@@ -80,10 +83,10 @@ const CodeReviewerDashboard = () => {
                   <Button
                     variant="secondary"
                     onClick={() => {
-                      claimAssignment(assignment);
+                      editReview(assignment);
                     }}
                   >
-                    Claim
+                    Edit
                   </Button>
                 </Card.Body>
               </Card>
@@ -160,10 +163,10 @@ const CodeReviewerDashboard = () => {
                   <Button
                     variant="secondary"
                     onClick={() => {
-                      claimAssignment(assignment);
+                      window.location.href = `/assignments/${assignment.id}`
                     }}
                   >
-                    Claim
+                    View
                   </Button>
                 </Card.Body>
               </Card>

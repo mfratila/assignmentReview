@@ -23,10 +23,13 @@ const Dashboard = () => {
     <div style={{ margin: "2em" }}>
       <Row>
         <Col>
-          <div className="d-flex justify-content-end" onClick={() => {
-            setJwt(null)
-            window.location.href = "/login"
-            }}>
+          <div
+            className="d-flex justify-content-end"
+            onClick={() => {
+              setJwt(null);
+              window.location.href = "/login";
+            }}
+          >
             Logout
           </div>
         </Col>
@@ -46,7 +49,11 @@ const Dashboard = () => {
               <Card.Body className="d-flex flex-column justify-content-around">
                 <Card.Title>Assignment #{assignment.number}</Card.Title>
                 <div className="d-flex align-items-start">
-                  <Badge pill bg="info" style={{ fontSize: "1em" }}>
+                  <Badge
+                    pill
+                    bg={assignment.status === "Completed" ? "success" : "info"}
+                    style={{ fontSize: "1em" }}
+                  >
                     {assignment.status}
                   </Badge>
                 </div>
