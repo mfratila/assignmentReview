@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocalState } from "../util/useLocalStorage";
 import ajax from "../Services/fetchService";
-import { Button, Col, Row, Form, Container, Badge } from "react-bootstrap";
+import { Button, Col, Row, Form, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import StatusBadge from "../StatusBadge";
 
 const CodeReviewerAssignmentView = () => {
+  const navigate = useNavigate();
   const [jwt, setJwt] = useLocalState("", "jwt");
   const assignmentId = window.location.href.split("/assignments/")[1];
   const [assignment, setAssignment] = useState({
@@ -66,9 +69,7 @@ const CodeReviewerAssignmentView = () => {
           {assignment.number ? <h1>Assignment {assignment.number}</h1> : <></>}
         </Col>
         <Col>
-          <Badge pill bg="info" style={{ fontSize: "1em" }}>
-            Status: {assignment.status}
-          </Badge>
+          <StatusBadge text={assignment.status}></StatusBadge>
         </Col>
       </Row>
       {assignment ? (
@@ -119,12 +120,12 @@ const CodeReviewerAssignmentView = () => {
           <div className="d-flex gap-5">
             {assignment.status === "Completed" ? (
               <Button
-              size="lg"
-              variant="secondary"
-              onClick={() => save(assignmentStatuses[2].status)}
-            >
-              Re-Claim
-            </Button>
+                size="lg"
+                variant="secondary"
+                onClick={() => save(assignmentStatuses[2].status)}
+              >
+                Re-Claim
+              </Button>
             ) : (
               <Button
                 size="lg"
@@ -155,7 +156,7 @@ const CodeReviewerAssignmentView = () => {
             <Button
               size="lg"
               variant="secondary"
-              onClick={() => (window.location.href = "/dashboard")}
+              onClick={() => navigate("/dashboard")}
             >
               Back
             </Button>

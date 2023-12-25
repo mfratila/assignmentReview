@@ -7,13 +7,15 @@ import {
   Row,
   Form,
   Container,
-  Badge,
   DropdownButton,
   ButtonGroup,
   Dropdown,
 } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import StatusBadge from "../StatusBadge";
 
 const AssignmentView = () => {
+  const navigate = useNavigate();
   const [jwt, setJwt] = useLocalState("", "jwt");
   const assignmentId = window.location.href.split("/assignments/")[1];
   const [assignment, setAssignment] = useState({
@@ -33,10 +35,9 @@ const AssignmentView = () => {
     setAssignment(newAssignment);
   }
 
-  async function save() {
-    // this implies that the student is submitting the assignment for the first time
-    if (assignment.status === assignmentStatuses[0].status) {
-      updateAssignment("status", assignmentStatuses[1].status);
+  async function save(status) {
+    if (status && assignment.status !== status) {
+      updateAssignment("status", status);
     } else {
       persist();
     }
@@ -77,9 +78,7 @@ const AssignmentView = () => {
           {assignment.number ? <h1>Assignment {assignment.number}</h1> : <></>}
         </Col>
         <Col>
-          <Badge pill bg="info" style={{ fontSize: "1em" }}>
-            Status: {assignment.status}
-          </Badge>
+          <StatusBadge text={assignment.status}></StatusBadge>
         </Col>
       </Row>
       {assignment ? (
@@ -140,7 +139,11 @@ const AssignmentView = () => {
           </Form.Group>
           {assignment.status === "Completed" ? (
             <div>
-              <Form.Group as={Row} className="d-flex align-items-center mb-3" controlId="codeReviewVideoUrl">
+              <Form.Group
+                as={Row}
+                className="d-flex align-items-center mb-3"
+                controlId="codeReviewVideoUrl"
+              >
                 <Form.Label column sm="3" md="2">
                   Code Review Video URL:
                 </Form.Label>
@@ -156,20 +159,33 @@ const AssignmentView = () => {
               <Button
                 size="lg"
                 variant="secondary"
-                onClick={() => (window.location.href = "/dashboard")}
+                onClick={() => navigate("/dashboard")}
+              >
+                Back
+              </Button>
+            </div>
+          ) : assignment.status === "Pending Submission" ? (
+            <div className="d-flex gap-5">
+              <Button size="lg" onClick={() => save(assignmentStatuses[1].status)}>
+                Submit Assignment
+              </Button>
+              <Button
+                size="lg"
+                variant="secondary"
+                onClick={() => navigate("/dashboard")}
               >
                 Back
               </Button>
             </div>
           ) : (
             <div className="d-flex gap-5">
-              <Button size="lg" onClick={() => save()}>
-                Submit Assignment
+              <Button size="lg" onClick={() => save(assignmentStatuses[5].status)}>
+                Resubmit Assignment
               </Button>
               <Button
                 size="lg"
                 variant="secondary"
-                onClick={() => (window.location.href = "/dashboard")}
+                onClick={() => navigate("/dashboard")}
               >
                 Back
               </Button>

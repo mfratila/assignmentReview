@@ -4,7 +4,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
 const Login = () => {
   const [username, setUsername] = useState("");
-  const [password, setpassword] = useState("");
+  const [password, setPassword] = useState("");
 
   const [jwt, setJwt] = useLocalState("", "jwt");
 
@@ -62,7 +62,7 @@ const Login = () => {
                 size="lg"
                 type="password"
                 value={password}
-                onChange={(e) => setpassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Group>
           </Col>
