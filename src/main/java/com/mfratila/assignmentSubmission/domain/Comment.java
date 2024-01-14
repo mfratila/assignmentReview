@@ -1,5 +1,7 @@
 package com.mfratila.assignmentSubmission.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -11,6 +13,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
+    @JsonIgnore
     private Assignment assignment;
     @ManyToOne
     @JoinColumn(name = "user_id")

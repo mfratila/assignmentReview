@@ -13,11 +13,12 @@ import {
 import { useNavigate } from "react-router-dom";
 import StatusBadge from "../StatusBadge";
 import { useUser } from "../UserProvider";
+import { useParams } from "react-router-dom";
 
 const AssignmentView = () => {
   const navigate = useNavigate();
   const user = useUser();
-  const assignmentId = window.location.href.split("/assignments/")[1];
+  const { assignmentId } = useParams();
   const [assignment, setAssignment] = useState({
     githubUrl: "",
     branch: "",
@@ -28,15 +29,15 @@ const AssignmentView = () => {
   const [assignmentStatuses, setAssignmentStatuses] = useState([]);
   const [comment, setComment] = useState({
     text: "",
-    assignment: assignmentId,
+    assignmentId: assignmentId != null ? parseInt(assignmentId) : null,
     user: user.jwt
   });
 
   const previousAssignmentValue = useRef(assignment);
 
   function submitComment() {
-    ajax('api/comments', 'post', user.jwt, comment).then((data) =>
-    console.log(data)
+    ajax('/api/comments', 'post', user.jwt, comment).then((comment) =>
+    console.log(comment)
     );
   }
 
