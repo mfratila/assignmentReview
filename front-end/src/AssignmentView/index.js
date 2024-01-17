@@ -32,13 +32,20 @@ const AssignmentView = () => {
     assignmentId: assignmentId != null ? parseInt(assignmentId) : null,
     user: user.jwt
   });
+  const [comments, setComments] = useState([]);
 
   const previousAssignmentValue = useRef(assignment);
 
+  const inputElem = document.getElementById("commentInput");
+
   function submitComment() {
-    ajax('/api/comments', 'post', user.jwt, comment).then((comment) =>
-    console.log(comment)
-    );
+    ajax('/api/comments', 'post', user.jwt, comment).then((commentData) => {
+    inputElem.value = "";
+    const commentsCopy = [...comments];
+    commentsCopy.push(commentData);
+
+    setComments(commentsCopy);
+  });
   }
 
   function updateComment(value) {
@@ -88,6 +95,12 @@ const AssignmentView = () => {
       }
     );
   }, []);
+
+  useEffect(() => {
+    ajax(`/api/comments?assignmentId=${assignmentId}`, "get", user.jwt, null).then((commentsData) => {
+      setComments(commentsData);
+    });
+  }, [])
 
   return (
     <Container className="mt-5">
@@ -211,10 +224,21 @@ const AssignmentView = () => {
           )}
             <div className="mt-4">
               <textarea
+              id = "commentInput"
               style={{ width: "100%", borderRadius: "0.25em" }}
               onChange={(e) => updateComment(e.target.value)}> 
               </textarea>
               <Button onClick={() => submitComment()}>Post Comment</Button>
+            </div>
+            <div className="mt-5">
+              {comments.map((comment) => (
+                <div key={comment.id}>
+                  <span style={{fontWeight: 'bold'}}>
+                    {`[${comment.createdDate}] ${comment.createdBy.name}: `}
+                  </span>
+                  {comment.text}
+                </div>
+              ))}
             </div>
         </>
       ) : (

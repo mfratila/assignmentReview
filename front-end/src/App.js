@@ -17,7 +17,6 @@ function App() {
   const [roles, setRoles] = useState(getRolesFromJwt());
 
   useEffect(() => {
-    console.log(" JWT has changed");
     setRoles(getRolesFromJwt());
   }, [user.jwt])
 

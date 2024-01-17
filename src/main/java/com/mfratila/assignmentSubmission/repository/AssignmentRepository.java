@@ -15,4 +15,5 @@ public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
             + "where (a.status = 'submitted' and (a.codeReviewer is null or a.codeReviewer = :codeReviewer ))"
             + "or a.codeReviewer = :codeReviewer")
     Set<Assignment> findByCodeReviewer(User codeReviewer);
+
 }
