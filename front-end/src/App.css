@@ -12,3 +12,10 @@
     width: min-content !important;
     white-space: nowrap !important;
 }
+
+.comment-bubble {
+    background: #cccccc;
+    border-radius: 1em;
+    padding: 1em;
+    margin: 1em 0em;
+}

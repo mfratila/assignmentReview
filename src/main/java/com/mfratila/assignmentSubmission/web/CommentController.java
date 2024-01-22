@@ -21,7 +21,7 @@ public class CommentController {
     @PostMapping("")
     public ResponseEntity<Comment> createComment(@RequestBody CommentDto commentDto, @AuthenticationPrincipal User user) {
         Comment comment = commentService.save(commentDto, user);
-        System.out.println(commentDto);
+
         return ResponseEntity.ok(comment);
     }
 
@@ -33,4 +33,10 @@ public class CommentController {
         return ResponseEntity.ok(comments);
     }
 
+    @PutMapping("{commentId}")
+    public ResponseEntity<Comment> updateComment(@RequestBody CommentDto commentDto, @AuthenticationPrincipal User user) {
+        Comment comment = commentService.save(commentDto, user);
+
+        return ResponseEntity.ok(comment);
+    }
 }
