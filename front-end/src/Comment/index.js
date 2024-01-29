@@ -1,29 +1,70 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useUser } from "../UserProvider";
 import { jwtDecode } from "jwt-decode";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 const Comment = (props) => {
   const user = useUser();
   const decodedJwt = jwtDecode(user.jwt);
-  console.log(decodedJwt.sub);
 
-  const { id, createdDate, createdBy, text, emitDeleteComment, emitEditComment } = props;
-  console.log(createdBy);
+  const {
+    id,
+    createdDate,
+    createdBy,
+    text,
+    emitDeleteComment,
+    emitEditComment,
+  } = props;
+  const [commentRelativeTime, setCommentRelativeTime] = useState("");
+
+  useEffect(() => {
+    updateCommentRelativeTime();
+  }, [createdDate]);
+
+  function updateCommentRelativeTime() {
+    if (createdDate) {
+      dayjs.extend(relativeTime);
+      setCommentRelativeTime(dayjs(createdDate).fromNow());
+    }
+  }
+
+  setInterval(() => {
+    updateCommentRelativeTime();
+  }, 1000*61)
+
   return (
-    <div className="comment-bubble" key={id}>
-      <div className="d-flex gap-5" style={{ fontWeight: "bold" }}>
-      <div>{`${createdBy.name}: `}</div>
-      {
-        decodedJwt.sub === createdBy.username ? (
-          <>
-          <div onClick={() => emitEditComment(id)} style={{ cursor: "pointer", color: "blue"}}>edit</div>
-          <div onClick={() => emitDeleteComment(id)} style={{ cursor: "pointer", color: "red"}}>delete</div>
-          </>
-        ) : <></>
-      }
+    <>
+      <div className="comment-bubble" key={id}>
+        <div className="d-flex gap-5" style={{ fontWeight: "bold" }}>
+          <div>{`${createdBy.name}: `}</div>
+          {decodedJwt.sub === createdBy.username ? (
+            <>
+              <div
+                onClick={() => emitEditComment(id)}
+                style={{ cursor: "pointer", color: "blue" }}
+              >
+                edit
+              </div>
+              <div
+                onClick={() => emitDeleteComment(id)}
+                style={{ cursor: "pointer", color: "red" }}
+              >
+                delete
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
+        <div>{text}</div>
       </div>
-      <div>{text}</div>
-    </div>
+      <div
+        style={{ marginTop: "-0.9em", marginLeft: "1.4em", fontSize: "14px" }}
+      >
+        {commentRelativeTime ? `Posted ${commentRelativeTime}`: ""}
+      </div>
+    </>
   );
 };
 
