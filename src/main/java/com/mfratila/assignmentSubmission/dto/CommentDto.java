@@ -1,11 +1,14 @@
 package com.mfratila.assignmentSubmission.dto;
 
 
+import java.time.ZonedDateTime;
+
 public class CommentDto {
     private Long id;
     private Long assignmentId;
     private String text;
     private String user;
+    private ZonedDateTime createdDate;
 
     public Long getId() {
         return id;
@@ -37,6 +40,14 @@ public class CommentDto {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public ZonedDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(ZonedDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
     public CommentDto(Long assignmentId, String text, String user) {

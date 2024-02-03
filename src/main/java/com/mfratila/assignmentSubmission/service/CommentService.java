@@ -6,13 +6,10 @@ import com.mfratila.assignmentSubmission.domain.User;
 import com.mfratila.assignmentSubmission.dto.CommentDto;
 import com.mfratila.assignmentSubmission.repository.AssignmentRepository;
 import com.mfratila.assignmentSubmission.repository.CommentRepository;
-import com.mfratila.assignmentSubmission.repository.UserRepository;
-import com.mfratila.assignmentSubmission.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.ZonedDateTime;
 import java.util.Set;
 
 @Service
@@ -31,7 +28,12 @@ public class CommentService {
         comment.setAssignment(assignment);
         comment.setText(commentDto.getText());
         comment.setCreatedBy(user);
-        if (comment.getId() == null) comment.setCreatedDate(LocalDateTime.now());
+
+        if (comment.getId() == null)
+            comment.setCreatedDate(ZonedDateTime.now());
+        else {
+            comment.setCreatedDate(commentDto.getCreatedDate());
+        }
 
         return commentRepository.save(comment);
     }

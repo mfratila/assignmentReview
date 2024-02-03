@@ -4,6 +4,7 @@ import { Button, Col, Row, Form, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import StatusBadge from "../StatusBadge";
 import { useUser } from "../UserProvider";
+import CommentContainer from "../CommentContainer";
 
 const CodeReviewerAssignmentView = () => {
   const navigate = useNavigate();
@@ -161,6 +162,8 @@ const CodeReviewerAssignmentView = () => {
               Back
             </Button>
           </div>
+
+          <CommentContainer assignmentId={assignmentId} />
         </>
       ) : (
         <></>
