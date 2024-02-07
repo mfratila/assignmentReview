@@ -75,8 +75,13 @@ const CommentContainer = (props) => {
   }
 
   function handleDeleteComment(commentId) {
-    // TODO : send DELETE request to server
     console.log("I've been told to delete this comment", commentId);
+    ajax(`/api/comments/${commentId}`, "delete", user.jwt).then((msg) => {
+      const commentsCopy = [...comments];
+      const i = commentsCopy.findIndex((comment) => comment.id === commentId);
+      commentsCopy.splice(i, 1);
+      formatComments(commentsCopy);
+    });
   }
 
   function formatComments(commentsCopy) {
@@ -113,6 +118,7 @@ const CommentContainer = (props) => {
       <div className="mt-5">
         {comments.map((comment) => (
           <Comment
+            key={comment.id}
             id={comment.id}
             createdDate={comment.createdDate}
             createdBy={comment.createdBy}

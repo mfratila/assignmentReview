@@ -114,7 +114,7 @@ const CodeReviewerAssignmentView = () => {
                 onChange={(e) =>
                   updateAssignment("codeReviewVideoUrl", e.target.value)
                 }
-                value={assignment.codeReviewVideoUrl}
+                value={assignment.codeReviewVideoUrl || ''}
               />
             </Col>
           </Form.Group>
