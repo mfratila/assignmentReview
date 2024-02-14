@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import CodeReviewerAssignmentView from "./CodeReviewerAssignmentView/index.js";
 import { useUser } from "./UserProvider/index.js";
+import AdminDashboard from "./AdminDashboard/index.js";
+import AdminUserCreationView from "./AdminUserCreationView/index.js";
 
 function App() {
   const user = useUser();
@@ -31,38 +33,49 @@ function App() {
   }
 
   return (
-      <Routes>
-        <Route
-          path="/dashboard"
-          element={
-            roles.find((role) => role === "ROLE_CODE_REVIEWER") ? (
-              <PrivateRoute>
-                <CodeReviewerDashboard />
-              </PrivateRoute>
-            ) : (
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            )
-          }
-        />
-        <Route
-          path="/assignments/:assignmentId"
-          element={
-            roles.find((role) => role === "ROLE_CODE_REVIEWER") ? (
-              <PrivateRoute>
-                <CodeReviewerAssignmentView />
-              </PrivateRoute>
-            ) : (
-              <PrivateRoute>
-                <AssignmentView />
-              </PrivateRoute>
-            )
-          }
-        />
-        <Route path="/" element={<Homepage />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
+    <Routes>
+      <Route
+        path="/dashboard"
+        element={
+          roles.find((role) => role === "ROLE_CODE_REVIEWER") ? (
+            <PrivateRoute>
+              <CodeReviewerDashboard />
+            </PrivateRoute>
+          ) : roles.find((role) => role === "ROLE_CODE_ADMIN") ? (
+            <PrivateRoute>
+              <AdminDashboard />
+            </PrivateRoute>
+          ) : (
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          )
+        }
+      />
+      <Route
+        path="/assignments/:assignmentId"
+        element={
+          roles.find((role) => role === "ROLE_CODE_REVIEWER") ? (
+            <PrivateRoute>
+              <CodeReviewerAssignmentView />
+            </PrivateRoute>
+          ) : (
+            <PrivateRoute>
+              <AssignmentView />
+            </PrivateRoute>
+          )
+        }
+      />
+      <Route
+        path="/users/:userId" element={(
+          <PrivateRoute>
+            <AdminUserCreationView />
+          </PrivateRoute>
+        )}>
+      </Route>
+      <Route path="/" element={<Homepage />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
   );
 }
 

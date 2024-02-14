@@ -1,0 +1,23 @@
+.page-title-container {
+    background-color: #007bff; /* Blue background color */
+    padding: 20px; /* Adjust padding as needed */
+  }
+  
+  .custom-title {
+    color: #ffffff; /* White text color */
+  }
+  
+  .custom-subtitle {
+    font-size: 1.2rem;
+    color: #ffffff; /* White text color */
+  }
+  
+  /* Add a line underneath the title */
+  .custom-title::after {
+    content: '';
+    display: block;
+    width: 50px; /* Adjust the line width as needed */
+    height: 3px; /* Adjust the line thickness as needed */
+    background-color: #ffffff; /* White line color */
+    margin: 10px auto; /* Adjust the margin to center the line */
+  }
