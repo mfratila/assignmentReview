@@ -19,10 +19,10 @@ const CodeReviewerDashboard = () => {
 
   function claimAssignment(assignment) {
     const decodedJwt = jwtDecode(user.jwt);
-    const user = {
+    const decodedUser = {
       username: decodedJwt.sub,
     };
-    assignment.codeReviewer = user;
+    assignment.codeReviewer = decodedUser;
     // TODO: update hardcoded value
     assignment.status = "In Review";
     ajax(`/api/assignments/${assignment.id}`, "PUT", user.jwt, assignment).then(
