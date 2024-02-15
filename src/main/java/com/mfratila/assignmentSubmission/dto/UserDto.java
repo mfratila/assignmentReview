@@ -14,6 +14,7 @@ public class UserDto {
         this.authorities = authorities;
         this.name = name;
     }
+    public UserDto() {};
 
     public Long getId() {
         return id;

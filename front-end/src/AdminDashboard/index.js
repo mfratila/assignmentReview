@@ -4,14 +4,18 @@ import { useUser } from '../UserProvider';
 import Table from 'react-bootstrap/Table';
 import { Button } from 'react-bootstrap'; 
 import './style.css';
+import { useNavigate } from 'react-router';
 
 const AdminDashboard = () => {
 
+  const navigate = useNavigate();
   const user = useUser();
   const [users, setUsers] = useState(null);
 
   function createUser() {
-    console.log("Creez utilizator nou");
+    ajax("/api/users", "POST", user.jwt).then((assignment) => {
+      navigate(`/users/${assignment.id}`);
+    });
   }
 
   useEffect(() => {
