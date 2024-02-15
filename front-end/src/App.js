@@ -41,7 +41,7 @@ function App() {
             <PrivateRoute>
               <CodeReviewerDashboard />
             </PrivateRoute>
-          ) : roles.find((role) => role === "ROLE_CODE_ADMIN") ? (
+          ) : roles.find((role) => role === "ROLE_ADMIN") ? (
             <PrivateRoute>
               <AdminDashboard />
             </PrivateRoute>
@@ -59,6 +59,10 @@ function App() {
             <PrivateRoute>
               <CodeReviewerAssignmentView />
             </PrivateRoute>
+          ) : roles.find((role) => role === "ROLE_ADMIN") ? (
+            <PrivateRoute>
+            <AdminUserCreationView />
+          </PrivateRoute>
           ) : (
             <PrivateRoute>
               <AssignmentView />
