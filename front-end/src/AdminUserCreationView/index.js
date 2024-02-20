@@ -31,31 +31,11 @@ const AdminUserCreationView = () => {
     setUserData(newUserData);
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Add your backend logic to create a user here
-    // Example: Call an API to create a user
-    // replace 'yourApiEndpoint' with the actual endpoint
-    // replace 'yourApiKey' with any authentication token or header required
-    fetch('yourApiEndpoint', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        // Add any authentication headers here
-      },
-      body: JSON.stringify(userData),
+  const handleSubmit = () => {
+    ajax(`/users/${userId}`, "PUT", user.jwt, userData).then(returnedUserData => {
+      setUserData(returnedUserData);
+      navigate("/dashboard");
     })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle success or error based on the response
-        console.log('User created successfully:', data);
-        // Redirect to the user management page or any desired location
-        navigate('/user-management');
-      })
-      .catch((error) => {
-        console.error('Error creating user:', error);
-      });
   };
 
   useEffect(() => {
@@ -85,7 +65,7 @@ const AdminUserCreationView = () => {
       </Row>
       {userData ? (
         <>
-          <Form.Group as={Row} className="my-3" controlId="githubUrl">
+          <Form.Group as={Row} className="my-3" controlId="username">
             <Form.Label column sm="3" md="2">
               Nume Utilizator:
             </Form.Label>
@@ -98,7 +78,7 @@ const AdminUserCreationView = () => {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} className="my-3" controlId="githubUrl">
+          <Form.Group as={Row} className="my-3" controlId="name">
             <Form.Label column sm="3" md="2">
               Nume Complet:
             </Form.Label>
@@ -111,7 +91,7 @@ const AdminUserCreationView = () => {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} className="mb-3" controlId="gitHubBranch">
+          <Form.Group as={Row} className="mb-3" controlId="password">
             <Form.Label column sm="3" md="2">
               Parola:
             </Form.Label>
@@ -124,7 +104,7 @@ const AdminUserCreationView = () => {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} className="my-3" controlId="assignmentName">
+          <Form.Group as={Row} className="my-3" controlId="authorities">
             <Form.Label column sm="3" md="2">
               Rol Utilizator:
             </Form.Label>
@@ -155,7 +135,7 @@ const AdminUserCreationView = () => {
           <div className="d-flex gap-5">
               <Button
                 size="lg"
-                onClick={() => {console.log("Salvez utilizatorul!")}}
+                onClick={handleSubmit}
               >
                 Creaza Utilizator
               </Button>

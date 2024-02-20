@@ -4,11 +4,15 @@ import com.mfratila.assignmentSubmission.domain.Authority;
 import com.mfratila.assignmentSubmission.domain.User;
 import com.mfratila.assignmentSubmission.dto.UserDto;
 import com.mfratila.assignmentSubmission.enums.AuthorityEnum;
+import com.mfratila.assignmentSubmission.repository.AuthorityRepository;
 import com.mfratila.assignmentSubmission.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +23,10 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AuthorityRepository authorityRepository;
+
+    private final PasswordEncoder passwordEncoder  = new BCryptPasswordEncoder();
 
     public List<UserDto> findAllUsers() {
         List<User> users = userRepository.findAll();
@@ -63,5 +71,28 @@ public class UserService {
             return userRepository.save(newUser);
         }
         return null;
+    }
+
+    public UserDto updateUser(UserDto userDto, Long updatedUserId) {
+        User userToBeUpdated = userRepository.findById(updatedUserId).orElseThrow(IllegalStateException::new);
+        userToBeUpdated.setUsername(userDto.getUsername());
+        userToBeUpdated.setAuthorities(convertAuthorityFromString(userDto.getAuthorities(), userToBeUpdated));
+        userToBeUpdated.setName(userDto.getName());
+        String encodedPassword = passwordEncoder.encode(userDto.getPassword());
+        userToBeUpdated.setPassword(encodedPassword);
+
+        userRepository.save(userToBeUpdated);
+        return getUserDtoFromUser(userToBeUpdated);
+    }
+
+    private List<Authority> convertAuthorityFromString(List<String> authoritiesAsString, User user) {
+        Authority newAuthority = new Authority();
+        newAuthority.setAuthority(authoritiesAsString.get(0));
+        newAuthority.setUser(user);
+        authorityRepository.save(newAuthority);
+
+        List<Authority>  authorityList = new ArrayList<>();
+        authorityList.add(newAuthority);
+        return authorityList;
     }
 }

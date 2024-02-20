@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 import StatusBadge from "../StatusBadge";
 import { useUser } from "../UserProvider";
 import { useParams } from "react-router-dom";
-import Comment from "../Comment";
 import CommentContainer from "../CommentContainer";
 
 const AssignmentView = () => {

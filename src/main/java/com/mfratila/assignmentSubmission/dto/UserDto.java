@@ -7,13 +7,24 @@ public class UserDto {
     private String username;
     private List<String> authorities;
     private String name;
+    private String password;
 
     public UserDto(Long id, String username, List<String> authorities, String name) {
         this.id = id;
         this.username = username;
         this.authorities = authorities;
         this.name = name;
+        this.password = "";
     }
+
+    public UserDto(Long id, String username, List<String> authorities, String name, String password) {
+        this.id = id;
+        this.username = username;
+        this.authorities = authorities;
+        this.name = name;
+        this.password = password;
+    }
+
     public UserDto() {};
 
     public Long getId() {
@@ -46,5 +57,13 @@ public class UserDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
