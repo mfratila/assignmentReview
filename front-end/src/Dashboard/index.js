@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ajax from "../Services/fetchService";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Nav, Navbar, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import StatusBadge from "../StatusBadge";
 import { useUser } from "../UserProvider";
@@ -8,7 +8,7 @@ import { useUser } from "../UserProvider";
 const Dashboard = () => {
   const navigate = useNavigate();
   const user = useUser();
-  const [assignments, setAssignments] = useState(null);
+  const [assignments, setAssignments] = useState([]);
 
   useEffect(() => {
     ajax("api/assignments", "GET", user.jwt).then((assignmentsData) => {
@@ -23,61 +23,86 @@ const Dashboard = () => {
   }
 
   return (
-    <div style={{ margin: "2em" }}>
-      <Row>
-        <Col>
-          <div
-            className="d-flex justify-content-end"
-            onClick={() => {
-              user.setJwt(null);
-              navigate("/login");
-            }}
-          >
-            Logout
+    <>
+    <Navbar bg="primary" data-bs-theme="dark">
+        <Container>
+          <Navbar.Brand>Navbar</Navbar.Brand>
+          <Nav className="me-auto">
+          <Nav.Link href="/">Acasa</Nav.Link>
+          <Nav.Link href="/dashboard">Tabel de Bord</Nav.Link>
+            </Nav>
+            <Nav className="ml-auto">
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  user.setJwt(null);
+                  navigate("/login");
+                }}
+              >
+                Logout
+              </Button>
+          </Nav>
+        </Container>
+      </Navbar>
+      <div style={{ margin: "2em" }}>
+        <Row>
+          <Col>
+          </Col>
+        </Row>
+        {assignments.length < 14 ? (
+          <div className="mb-4">
+            <Button size="lg" onClick={() => createAssignment()}>
+              Submit New Assignment
+            </Button>
           </div>
-        </Col>
-      </Row>
-      <div className="mb-4">
-        <Button size="lg" onClick={() => createAssignment()}>
-          Submit New Assignment
-        </Button>
+        ) : (
+          <></>
+        )}
+
+        {assignments ? (
+          <div
+            className="d-grid gap-5"
+            style={{ gridTemplateColumns: "repeat(auto-fill, 18rem)" }}
+          >
+            {assignments.map((assignment) => (
+              <Card key={assignment.id} style={{ width: "18rem" }}>
+                <Card.Body className="d-flex flex-column justify-content-around">
+                  <Card.Title>Assignment #{assignment.number}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    Card Subtitle
+                  </Card.Subtitle>
+                  <div className="d-flex align-items-start">
+                    <StatusBadge text={assignment.status}></StatusBadge>
+                  </div>
+                  <Card.Text>
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </Card.Text>
+                  <Card.Text style={{ marginTop: "1em" }}>
+                    <p>
+                      <b>GitHub URL:</b> {assignment.githubUrl}
+                    </p>
+                    <p>
+                      <b>Branch:</b> {assignment.branch}
+                    </p>
+                  </Card.Text>
+                  <Button
+                    variant="secondary"
+                    onClick={() => {
+                      navigate(`/assignments/${assignment.id}`);
+                    }}
+                  >
+                    Edit
+                  </Button>
+                </Card.Body>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
-      {assignments ? (
-        <div
-          className="d-grid gap-5"
-          style={{ gridTemplateColumns: "repeat(auto-fill, 18rem)" }}
-        >
-          {assignments.map((assignment) => (
-            <Card key={assignment.id} style={{ width: "18rem" }}>
-              <Card.Body className="d-flex flex-column justify-content-around">
-                <Card.Title>Assignment #{assignment.number}</Card.Title>
-                <div className="d-flex align-items-start">
-                  <StatusBadge text={assignment.status}></StatusBadge>
-                </div>
-                <Card.Text style={{ marginTop: "1em" }}>
-                  <p>
-                    <b>GitHub URL:</b> {assignment.githubUrl}
-                  </p>
-                  <p>
-                    <b>Branch:</b> {assignment.branch}
-                  </p>
-                </Card.Text>
-                <Button
-                  variant="secondary"
-                  onClick={() => {
-                    navigate(`/assignments/${assignment.id}`);
-                  }}
-                >
-                  Edit
-                </Button>
-              </Card.Body>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        <></>
-      )}
-    </div>
+    </>
   );
 };
 

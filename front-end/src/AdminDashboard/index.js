@@ -34,6 +34,12 @@ const AdminDashboard = () => {
   return (
     <>
       <div className="page-title-container">
+      <div className="d-flex justify-content-end">
+            <Button variant="secondary" onClick={() => {
+              user.setJwt(null);
+              navigate("/login");
+            }}>Logout</Button>
+          </div>
         <div className="container mt-5 text-center">
           <h1 className="display-3 font-weight-bold custom-title">
             Tabel de Bord Administrator

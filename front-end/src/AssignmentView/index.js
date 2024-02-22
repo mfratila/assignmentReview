@@ -88,7 +88,7 @@ const AssignmentView = () => {
         <>
           <Form.Group as={Row} className="my-3" controlId="assignmentName">
             <Form.Label column sm="3" md="2">
-              Assignment Number:
+              Numarul Lucrarii:
             </Form.Label>
             <Col sm="9" md="8" lg="6">
               <DropdownButton

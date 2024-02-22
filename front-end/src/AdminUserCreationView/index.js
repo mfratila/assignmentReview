@@ -1,12 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router';
-import { useUser } from '../UserProvider';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { useUser } from "../UserProvider";
 import { useParams } from "react-router-dom";
-import { Button, Col, Row, Container, Form, DropdownButton, ButtonGroup, Dropdown } from 'react-bootstrap';
-import ajax from '../Services/fetchService';
+import {
+  Button,
+  Col,
+  Row,
+  Container,
+  Form,
+  DropdownButton,
+  ButtonGroup,
+  Dropdown,
+} from "react-bootstrap";
+import ajax from "../Services/fetchService";
 
 const AdminUserCreationView = () => {
-
   const navigate = useNavigate();
   const user = useUser();
   const { userId } = useParams();
@@ -26,25 +34,25 @@ const AdminUserCreationView = () => {
   }
 
   const handleSubmit = () => {
-    ajax(`/api/users/${userId}`, "PUT", user.jwt, userData).then(returnedUserData => {
-      setUserData(returnedUserData);
-      navigate("/dashboard");
-    })
+    ajax(`/api/users/${userId}`, "PUT", user.jwt, userData).then(
+      (returnedUserData) => {
+        setUserData(returnedUserData);
+        navigate("/dashboard");
+      }
+    );
   };
 
   useEffect(() => {
-    ajax(`/api/users/${userId}`, "GET", user.jwt).then(
-      (userResponse) => {
-        let userData = userResponse.user;
-        if (userData.username === null) userData.username = "";
-        if (userData.name === null) userData.name = "";
-        if (userData.password === null) userData.password = "";
-        setUserData(userResponse.user);
-        setAuthoritiesEnum(userResponse.authorities);
-      }
-    );
+    ajax(`/api/users/${userId}`, "GET", user.jwt).then((userResponse) => {
+      let userData = userResponse.user;
+      if (userData.username === null) userData.username = "";
+      if (userData.name === null) userData.name = "";
+      if (userData.password === null) userData.password = "";
+      setUserData(userResponse.user);
+      setAuthoritiesEnum(userResponse.authorities);
+    });
   }, []);
-  
+
   useEffect(() => {
     console.log(userData);
     console.log(authoritiesEnum);
@@ -85,20 +93,24 @@ const AdminUserCreationView = () => {
               />
             </Col>
           </Form.Group>
-          {userData.password ? (<></>) : (<Form.Group as={Row} className="mb-3" controlId="password">
-            <Form.Label column sm="3" md="2">
-              Parola:
-            </Form.Label>
-            <Col sm="9" md="8" lg="6">
-              <Form.Control
-                type="url"
-                placeholder="%$#@!kfdsifs^%a421"
-                onChange={(e) => updateUser("password", e.target.value)}
-                value={userData.password}
-              />
-            </Col>
-          </Form.Group>) } 
-          
+          {userData.password ? (
+            <></>
+          ) : (
+            <Form.Group as={Row} className="mb-3" controlId="password">
+              <Form.Label column sm="3" md="2">
+                Parola:
+              </Form.Label>
+              <Col sm="9" md="8" lg="6">
+                <Form.Control
+                  type="url"
+                  placeholder="%$#@!kfdsifs^%a421"
+                  onChange={(e) => updateUser("password", e.target.value)}
+                  value={userData.password}
+                />
+              </Col>
+            </Form.Group>
+          )}
+
           <Form.Group as={Row} className="my-3" controlId="authorities">
             <Form.Label column sm="3" md="2">
               Rol Utilizator:
@@ -117,10 +129,7 @@ const AdminUserCreationView = () => {
                 }}
               >
                 {authoritiesEnum.map((authorityEnum) => (
-                  <Dropdown.Item
-                    key={authorityEnum}
-                    eventKey={authorityEnum}
-                  >
+                  <Dropdown.Item key={authorityEnum} eventKey={authorityEnum}>
                     {authorityEnum}
                   </Dropdown.Item>
                 ))}
@@ -128,20 +137,17 @@ const AdminUserCreationView = () => {
             </Col>
           </Form.Group>
           <div className="d-flex gap-5">
-              <Button
-                size="lg"
-                onClick={handleSubmit}
-              >
-                Creaza Utilizator
-              </Button>
-              <Button
-                size="lg"
-                variant="secondary"
-                onClick={() => navigate("/dashboard")}
-              >
-                Back
-              </Button>
-            </div>
+            <Button size="lg" onClick={handleSubmit}>
+              Creaza Utilizator
+            </Button>
+            <Button
+              size="lg"
+              variant="secondary"
+              onClick={() => navigate("/dashboard")}
+            >
+              Back
+            </Button>
+          </div>
         </>
       ) : (
         <></>
@@ -150,4 +156,4 @@ const AdminUserCreationView = () => {
   );
 };
 
-export default AdminUserCreationView
+export default AdminUserCreationView;
