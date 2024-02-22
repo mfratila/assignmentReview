@@ -41,6 +41,7 @@ public class UserService {
         userDto.setUsername(user.getUsername());
         userDto.setName(user.getName());
         userDto.setAuthority(getAuthorityNames((Collection<Authority>) user.getAuthorities()));
+        userDto.setPassword(user.getPassword());
 
         return userDto;
     }

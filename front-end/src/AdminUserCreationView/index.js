@@ -85,7 +85,7 @@ const AdminUserCreationView = () => {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} className="mb-3" controlId="password">
+          {userData.password ? (<></>) : (<Form.Group as={Row} className="mb-3" controlId="password">
             <Form.Label column sm="3" md="2">
               Parola:
             </Form.Label>
@@ -97,7 +97,8 @@ const AdminUserCreationView = () => {
                 value={userData.password}
               />
             </Col>
-          </Form.Group>
+          </Form.Group>) } 
+          
           <Form.Group as={Row} className="my-3" controlId="authorities">
             <Form.Label column sm="3" md="2">
               Rol Utilizator:
