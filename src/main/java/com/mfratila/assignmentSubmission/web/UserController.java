@@ -34,7 +34,7 @@ public class UserController {
         return ResponseEntity.ok(newUser);
     }
 
-    @GetMapping("{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<?> getUser(@PathVariable Long userId) {
         User user = userService.findUserById(userId);
         UserDto userDto = userService.getUserDtoFromUser(user);
@@ -43,7 +43,7 @@ public class UserController {
         return ResponseEntity.ok(userResponseDto);
     }
 
-    @PutMapping("{userId}")
+    @PutMapping("/{userId}")
     public ResponseEntity<?> updateUser(@PathVariable Long userId,
                                         @RequestBody UserDto updatedUser) {
        UserDto updatedUserDto = userService.updateUser(updatedUser, userId);

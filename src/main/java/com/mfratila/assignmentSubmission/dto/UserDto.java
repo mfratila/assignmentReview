@@ -5,22 +5,22 @@ import java.util.List;
 public class UserDto {
     private Long id;
     private String username;
-    private List<String> authorities;
+    private String authority;
     private String name;
     private String password;
 
-    public UserDto(Long id, String username, List<String> authorities, String name) {
+    public UserDto(Long id, String username, String authority, String name) {
         this.id = id;
         this.username = username;
-        this.authorities = authorities;
+        this.authority = authority;
         this.name = name;
         this.password = "";
     }
 
-    public UserDto(Long id, String username, List<String> authorities, String name, String password) {
+    public UserDto(Long id, String username, String authority, String name, String password) {
         this.id = id;
         this.username = username;
-        this.authorities = authorities;
+        this.authority = authority;
         this.name = name;
         this.password = password;
     }
@@ -43,12 +43,12 @@ public class UserDto {
         this.username = username;
     }
 
-    public List<String> getAuthorities() {
-        return authorities;
+    public String getAuthority() {
+        return authority;
     }
 
-    public void setAuthorities(List<String> authorities) {
-        this.authorities = authorities;
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 
     public String getName() {

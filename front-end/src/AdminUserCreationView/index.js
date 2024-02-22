@@ -11,28 +11,22 @@ const AdminUserCreationView = () => {
   const user = useUser();
   const { userId } = useParams();
   const [userData, setUserData] = useState({
+    id: userId,
     username: "",
-    password: "",
-    authorities: [],
+    authority: "",
     name: "",
+    password: "",
   });
   const [authoritiesEnum, setAuthoritiesEnum] = useState([]);
 
   function updateUser(prop, value) {
     const newUserData = { ...userData };
-    if (prop === "authorities") {
-      if (newUserData.authorities.length > 0) {
-        newUserData.authorities = [];
-      }
-      newUserData.authorities.push(value);
-      console.log(newUserData.authorities[0]);
-    } 
     newUserData[prop] = value;
     setUserData(newUserData);
   }
 
   const handleSubmit = () => {
-    ajax(`/users/${userId}`, "PUT", user.jwt, userData).then(returnedUserData => {
+    ajax(`/api/users/${userId}`, "PUT", user.jwt, userData).then(returnedUserData => {
       setUserData(returnedUserData);
       navigate("/dashboard");
     })
@@ -113,12 +107,12 @@ const AdminUserCreationView = () => {
                 as={ButtonGroup}
                 variant="info"
                 title={
-                  userData.authorities[0]
-                    ? `Rol ${userData.authorities}`
+                  userData.authority
+                    ? `Rol ${userData.authority}`
                     : "Selecteaza un Rol"
                 }
                 onSelect={(selectedElement) => {
-                  updateUser("authorities", selectedElement);
+                  updateUser("authority", selectedElement);
                 }}
               >
                 {authoritiesEnum.map((authorityEnum) => (

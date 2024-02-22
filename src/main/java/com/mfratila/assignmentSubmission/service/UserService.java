@@ -40,15 +40,18 @@ public class UserService {
         userDto.setId(user.getId());
         userDto.setUsername(user.getUsername());
         userDto.setName(user.getName());
-        userDto.setAuthorities(getAuthorityNames((Collection<Authority>) user.getAuthorities()));
+        userDto.setAuthority(getAuthorityNames((Collection<Authority>) user.getAuthorities()));
 
         return userDto;
     }
 
-    private List<String> getAuthorityNames(Collection<Authority> authorities) {
+    private String getAuthorityNames(Collection<Authority> authorities) {
         return authorities.stream()
-                .map(Authority::getAuthority)
-                .collect(Collectors.toList());
+                .map(authority -> {
+                    String auth = authority.getAuthority();
+                    return auth;
+                })
+                .findFirst().orElse("");
     }
 
     public Optional<User> findUserByUsername(String username) {
@@ -76,7 +79,7 @@ public class UserService {
     public UserDto updateUser(UserDto userDto, Long updatedUserId) {
         User userToBeUpdated = userRepository.findById(updatedUserId).orElseThrow(IllegalStateException::new);
         userToBeUpdated.setUsername(userDto.getUsername());
-        userToBeUpdated.setAuthorities(convertAuthorityFromString(userDto.getAuthorities(), userToBeUpdated));
+        userToBeUpdated.setAuthorities(convertAuthorityFromString(userDto.getAuthority(), userToBeUpdated));
         userToBeUpdated.setName(userDto.getName());
         String encodedPassword = passwordEncoder.encode(userDto.getPassword());
         userToBeUpdated.setPassword(encodedPassword);
@@ -85,14 +88,17 @@ public class UserService {
         return getUserDtoFromUser(userToBeUpdated);
     }
 
-    private List<Authority> convertAuthorityFromString(List<String> authoritiesAsString, User user) {
-        Authority newAuthority = new Authority();
-        newAuthority.setAuthority(authoritiesAsString.get(0));
-        newAuthority.setUser(user);
-        authorityRepository.save(newAuthority);
+    private List<Authority> convertAuthorityFromString(String authority, User user) {
+        if (authority != null ) {
+            Authority newAuthority = new Authority();
+            newAuthority.setAuthority(authority);
+            newAuthority.setUser(user);
+            authorityRepository.save(newAuthority);
 
-        List<Authority>  authorityList = new ArrayList<>();
-        authorityList.add(newAuthority);
-        return authorityList;
+            List<Authority> authorityList = new ArrayList<>();
+            authorityList.add(newAuthority);
+            return authorityList;
+        }
+        return null;
     }
 }

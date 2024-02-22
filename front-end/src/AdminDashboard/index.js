@@ -59,7 +59,7 @@ const AdminDashboard = () => {
               <tr key={user.id}>
                 <td>{user.id}</td>
                 <td>{user.username}</td>
-                <td>{user.authorities[0]}</td>
+                <td>{user.authority}</td>
                 <td>{user.name}</td>
               </tr>
             ))}
