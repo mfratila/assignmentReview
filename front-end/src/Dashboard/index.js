@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ajax from "../Services/fetchService";
-import { Button, Card, Col, Container, Nav, Navbar, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import StatusBadge from "../StatusBadge";
 import { useUser } from "../UserProvider";
+import NavigationBar from "../Navbar";
+import StudentAssignmentCard from "../StudentAssignmentCard";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -24,26 +25,7 @@ const Dashboard = () => {
 
   return (
     <>
-    <Navbar bg="primary" data-bs-theme="dark">
-        <Container>
-          <Navbar.Brand>Navbar</Navbar.Brand>
-          <Nav className="me-auto">
-          <Nav.Link href="/">Acasa</Nav.Link>
-          <Nav.Link href="/dashboard">Tabel de Bord</Nav.Link>
-            </Nav>
-            <Nav className="ml-auto">
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  user.setJwt(null);
-                  navigate("/login");
-                }}
-              >
-                Logout
-              </Button>
-          </Nav>
-        </Container>
-      </Navbar>
+    <NavigationBar />
       <div style={{ margin: "2em" }}>
         <Row>
           <Col>
@@ -65,37 +47,7 @@ const Dashboard = () => {
             style={{ gridTemplateColumns: "repeat(auto-fill, 18rem)" }}
           >
             {assignments.map((assignment) => (
-              <Card key={assignment.id} style={{ width: "18rem" }}>
-                <Card.Body className="d-flex flex-column justify-content-around">
-                  <Card.Title>Assignment #{assignment.number}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    Card Subtitle
-                  </Card.Subtitle>
-                  <div className="d-flex align-items-start">
-                    <StatusBadge text={assignment.status}></StatusBadge>
-                  </div>
-                  <Card.Text>
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </Card.Text>
-                  <Card.Text style={{ marginTop: "1em" }}>
-                    <p>
-                      <b>GitHub URL:</b> {assignment.githubUrl}
-                    </p>
-                    <p>
-                      <b>Branch:</b> {assignment.branch}
-                    </p>
-                  </Card.Text>
-                  <Button
-                    variant="secondary"
-                    onClick={() => {
-                      navigate(`/assignments/${assignment.id}`);
-                    }}
-                  >
-                    Edit
-                  </Button>
-                </Card.Body>
-              </Card>
+              <StudentAssignmentCard assignment={assignment} />
             ))}
           </div>
         ) : (

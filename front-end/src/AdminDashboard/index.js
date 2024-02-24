@@ -76,7 +76,7 @@ const AdminDashboard = () => {
                   <td className="text-center">{user.name}</td>
                   <td className="text-center">
                     <Button size="lg" onClick={() => editUser(user.id)}>
-                      Creaza Utilizator
+                      Editeaza Utilizator
                     </Button>
                   </td>
                 </tr>

@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import StatusBadge from "../StatusBadge";
 import { useUser } from "../UserProvider";
+import NavigationBar from "../Navbar";
 
 const CodeReviewerDashboard = () => {
   const navigate = useNavigate();
@@ -40,6 +41,8 @@ const CodeReviewerDashboard = () => {
   }
 
   return (
+    <>
+    <NavigationBar />
     <Container>
       <Row>
         <Col>
@@ -195,6 +198,7 @@ const CodeReviewerDashboard = () => {
         )}
       </div>
     </Container>
+    </>
   );
 };
 
