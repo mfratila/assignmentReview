@@ -46,19 +46,6 @@ const CodeReviewerDashboard = () => {
     <Container>
       <Row>
         <Col>
-          <div
-            className="d-flex justify-content-end"
-            onClick={() => {
-              user.setJwt(null);
-              navigate("/login");
-            }}
-          >
-            Logout
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
           <h1>Code Reviewer Dashboard</h1>
         </Col>
       </Row>

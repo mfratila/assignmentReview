@@ -34,7 +34,8 @@ public class AssignmentController {
     @GetMapping("")
     public ResponseEntity<?> getAssignments(@AuthenticationPrincipal User user) {
         Set<Assignment> assignmentsByUser = assignmentService.findByUser(user);
-        return ResponseEntity.ok(assignmentsByUser);
+        AssignmentResponseDto response = new AssignmentResponseDto(assignmentsByUser);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{assignmentId}")

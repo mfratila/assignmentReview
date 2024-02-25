@@ -10,10 +10,12 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const user = useUser();
   const [assignments, setAssignments] = useState([]);
+  const [assignmentEnums, setAssignmentEnums] = useState([]);
 
   useEffect(() => {
     ajax("api/assignments", "GET", user.jwt).then((assignmentsData) => {
-      setAssignments(assignmentsData);
+      setAssignments(assignmentsData.assignments);
+      setAssignmentEnums(assignmentsData.assignmentEnums);
     });
   }, []);
 
@@ -22,6 +24,12 @@ const Dashboard = () => {
       navigate(`/assignments/${assignment.id}`);
     });
   }
+
+    // Helper function to get assignment name based on assignmentNum
+    const getAssignmentName = (assignmentNum) => {
+      const matchingEnum = assignmentEnums.find((enumItem) => enumItem.assignmentNum === assignmentNum);
+      return matchingEnum ? matchingEnum.assignmentName : 'Unknown Assignment';
+    };
 
   return (
     <>
@@ -47,7 +55,7 @@ const Dashboard = () => {
             style={{ gridTemplateColumns: "repeat(auto-fill, 18rem)" }}
           >
             {assignments.map((assignment) => (
-              <StudentAssignmentCard assignment={assignment} />
+              <StudentAssignmentCard assignment={assignment} assignmentName={getAssignmentName(assignment.number)} />
             ))}
           </div>
         ) : (
