@@ -14,7 +14,7 @@ const CodeReviewerDashboard = () => {
 
   useEffect(() => {
     ajax("api/assignments", "GET", user.jwt).then((assignmentsData) => {
-      setAssignments(assignmentsData);
+      setAssignments(assignmentsData.assignments);
     });
   }, []);
 

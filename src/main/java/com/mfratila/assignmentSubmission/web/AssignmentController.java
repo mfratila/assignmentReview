@@ -4,6 +4,7 @@ import com.mfratila.assignmentSubmission.domain.Assignment;
 import com.mfratila.assignmentSubmission.domain.User;
 import com.mfratila.assignmentSubmission.dto.AssignmentResponseDto;
 import com.mfratila.assignmentSubmission.enums.AuthorityEnum;
+import com.mfratila.assignmentSubmission.mail.EmailSenderService;
 import com.mfratila.assignmentSubmission.service.AssignmentService;
 import com.mfratila.assignmentSubmission.service.UserService;
 import com.mfratila.assignmentSubmission.util.AuthorityUtil;
@@ -23,6 +24,8 @@ public class AssignmentController {
     private AssignmentService assignmentService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private EmailSenderService emailSenderService;
 
     @PostMapping("")
     public ResponseEntity<?> createAssignment(@AuthenticationPrincipal User user) {
@@ -56,6 +59,9 @@ public class AssignmentController {
 
             if (AuthorityUtil.hasRole(AuthorityEnum.ROLE_CODE_REVIEWER.name(), codeReviewer)) {
                 assignment.setCodeReviewer(codeReviewer);
+                emailSenderService.sendMail(assignment.getUser().getUsername(),
+                        "Assignment has been assigned to a reviewer",
+                        "Your assignment has been taken by the following reviewer: " + codeReviewer.getUsername());
             }
         }
         Assignment updatedAssignment = assignmentService.save(assignment);
