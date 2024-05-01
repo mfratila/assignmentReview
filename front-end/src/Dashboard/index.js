@@ -42,7 +42,7 @@ const Dashboard = () => {
         {assignments.length < 14 ? (
           <div className="mb-4">
             <Button size="lg" onClick={() => createAssignment()}>
-              Submit New Assignment
+              Trimite o nouă temă
             </Button>
           </div>
         ) : (
