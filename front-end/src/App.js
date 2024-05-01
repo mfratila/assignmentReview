@@ -13,6 +13,8 @@ import CodeReviewerAssignmentView from "./CodeReviewerAssignmentView/index.js";
 import { useUser } from "./UserProvider/index.js";
 import AdminDashboard from "./AdminDashboard/index.js";
 import AdminUserCreationView from "./AdminUserCreationView/index.js";
+import CourseListView from "./CourseListView/index.js";
+import CourseContentView from "./CourseContentView/index.js";
 
 function App() {
   const user = useUser();
@@ -70,6 +72,24 @@ function App() {
           )
         }
       />
+      <Route
+      path="/materiale-didactice"
+      element={(
+        <PrivateRoute>
+          <CourseListView />
+        </PrivateRoute>
+      )}
+      >
+      </Route>
+      <Route
+      path="/materiale-didactice/:id"
+      element={(
+        <PrivateRoute>
+          <CourseContentView />
+        </PrivateRoute>
+      )}
+      >
+      </Route>
       <Route
         path="/users/:userId" element={(
           <PrivateRoute>
