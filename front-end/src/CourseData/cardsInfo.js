@@ -1,0 +1,16 @@
+export const cardsInfo = [
+    { id: 1, title: "Hello World", subtitle: "Introducere în Programare", description: "Primul pas în orice limbaj de programare este să înveți să rulezi un script simplu care afișează 'Hello, World!' pe ecran." },
+    { id: 2, title: "Calculator Simplu", subtitle: "Lucrul cu Input/Output", description: "Învață să creezi un calculator simplu care poate efectua operații matematice de bază folosind input de la utilizator." },
+    { id: 3, title: "Joc de Ghicit Numărul", subtitle: "Structuri de Control", description: "Dezvoltă un joc simplu unde utilizatorul trebuie să ghicească un număr aleatoriu generat de program." },
+    { id: 4, title: "Galerie de Imagini", subtitle: "Manipularea DOM", description: "Creează o galerie de imagini unde utilizatorii pot naviga prin imagini folosind butoane." },
+    { id: 5, title: "Aplicație de Votare", subtitle: "Evenimente și Stare", description: "Implementează o aplicație de votare unde utilizatorii pot selecta opțiuni și vedea rezultatele votului în timp real." },
+    { id: 6, title: "To-do List App", subtitle: "Stocarea Datelor Local", description: "Construiește o aplicație unde utilizatorii pot adăuga, șterge și bifa sarcini." },
+    { id: 7, title: "Blog Simplu", subtitle: "Aplicații CRUD", description: "Dezvoltă o aplicație web simplă unde utilizatorii pot crea, citi, actualiza și șterge articole de blog." },
+    { id: 8, title: "Chat Simplu", subtitle: "WebSocket-uri", description: "Implementează o aplicație de chat unde utilizatorii pot trimite și primi mesaje în timp real." },
+    { id: 9, title: "Joc de Tip Quiz", subtitle: "Interactivitate Complexă", description: "Creează un joc de quiz care testează cunoștințele utilizatorilor cu întrebări din diverse domenii." },
+    { id: 10, title: "Aplicație de Rezervări", subtitle: "Manipularea Datei și Ora", description: "Realizează o aplicație pentru rezervări unde utilizatorii pot alege date și ore pentru întâlniri sau evenimente." },
+    { id: 11, title: "Single Page Application", subtitle: "SPA cu React", description: "Învață să construiești o aplicație complexă cu pagină unică folosind React." },
+    { id: 12, title: "Platformă de e-Commerce", subtitle: "Integrare Completă", description: "Dezvoltă o platformă de e-commerce cu coș de cumpărături, gestionare de produse și procesare de plăți." },
+    { id: 13, title: "Aplicație de Recunoaștere a Imaginilor", subtitle: "Învățare Automată", description: "Utilizează TensorFlow.js pentru a crea o aplicație care recunoaște obiecte și persoane din imagini." },
+    { id: 14, title: "Dashboard de Vizualizare a Datelor", subtitle: "Grafice și Date", description: "Construiește un dashboard interactiv pentru vizualizarea datelor complexe cu ajutorul bibliotecilor JavaScript de grafice." },
+];
