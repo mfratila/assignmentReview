@@ -3,6 +3,7 @@ package com.mfratila.assignmentSubmission.web;
 import com.mfratila.assignmentSubmission.domain.Assignment;
 import com.mfratila.assignmentSubmission.domain.User;
 import com.mfratila.assignmentSubmission.dto.AssignmentResponseDto;
+import com.mfratila.assignmentSubmission.enums.AssignmentStatusEnum;
 import com.mfratila.assignmentSubmission.enums.AuthorityEnum;
 import com.mfratila.assignmentSubmission.mail.EmailSenderService;
 import com.mfratila.assignmentSubmission.service.AssignmentService;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -59,9 +61,11 @@ public class AssignmentController {
 
             if (AuthorityUtil.hasRole(AuthorityEnum.ROLE_CODE_REVIEWER.name(), codeReviewer)) {
                 assignment.setCodeReviewer(codeReviewer);
-                emailSenderService.sendMail(assignment.getUser().getUsername(),
-                        "Assignment has been assigned to a reviewer",
-                        "Your assignment has been taken by the following reviewer: " + codeReviewer.getUsername());
+                if (assignment.getStatus().equalsIgnoreCase(AssignmentStatusEnum.IN_REVIEW.getStatus()))  {
+                    emailSenderService.sendMail(assignment.getUser().getUsername(),
+                            "Assignment " + assignment.getNumber() + " has been assigned to a reviewer",
+                            "Your assignment has been taken by the following reviewer: " + codeReviewer.getUsername());
+                }
             }
         }
         Assignment updatedAssignment = assignmentService.save(assignment);
