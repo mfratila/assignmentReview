@@ -10,7 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user.jwt) navigate("/dashboard");
+    if (user.jwt) navigate("/");
   }, [user]);
 
   function sendLoginRequest() {
