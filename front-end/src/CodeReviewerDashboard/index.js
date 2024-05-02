@@ -45,12 +45,12 @@ const CodeReviewerDashboard = () => {
     <NavigationBar />
     <Container>
       <Row>
-        <Col>
-          <h1>Code Reviewer Dashboard</h1>
+        <Col className="mt-4 mb-4">
+          <h1>Tabel de bord Profesori</h1>
         </Col>
       </Row>
       <div className="assignment-wrapper in-review">
-        <div className="h3 px-2 assignment-wrapper-title">In Review</div>
+        <div className="h3 px-2 assignment-wrapper-title">In Revizuire</div>
         {assignments &&
         assignments.filter((assignment) => assignment.status === "In Review")
           .length > 0 ? (
@@ -63,7 +63,7 @@ const CodeReviewerDashboard = () => {
               .map((assignment) => (
                 <Card style={{ width: "18rem" }}>
                   <Card.Body className="d-flex flex-column justify-content-around">
-                    <Card.Title>Assignment #{assignment.number}</Card.Title>
+                    <Card.Title>Lucrarea #{assignment.number}</Card.Title>
                     <div className="d-flex align-items-start">
                       <StatusBadge text={assignment.status}></StatusBadge>
                     </div>
@@ -81,18 +81,18 @@ const CodeReviewerDashboard = () => {
                         editReview(assignment);
                       }}
                     >
-                      Edit
+                      Modifică
                     </Button>
                   </Card.Body>
                 </Card>
               ))}
           </div>
         ) : (
-          <div>No assignments found</div>
+          <div>Nici o lucrare găsită</div>
         )}
       </div>
       <div className="assignment-wrapper submitted">
-        <div className="h3 px-2 assignment-wrapper-title">Awaiting Review</div>
+        <div className="h3 px-2 assignment-wrapper-title">Așteaptă Revizuire</div>
         {assignments &&
         assignments.filter(
           (assignment) =>
@@ -114,7 +114,7 @@ const CodeReviewerDashboard = () => {
               .map((assignment) => (
                 <Card style={{ width: "18rem" }}>
                   <Card.Body className="d-flex flex-column justify-content-around">
-                    <Card.Title>Assignment #{assignment.number}</Card.Title>
+                    <Card.Title>Lucrarea #{assignment.number}</Card.Title>
                     <div className="d-flex align-items-start">
                       <StatusBadge text={assignment.status}></StatusBadge>
                     </div>
@@ -132,18 +132,18 @@ const CodeReviewerDashboard = () => {
                         claimAssignment(assignment);
                       }}
                     >
-                      Claim
+                      Revendică
                     </Button>
                   </Card.Body>
                 </Card>
               ))}
           </div>
         ) : (
-          <div>No assignments found</div>
+          <div>Nici o lucrare găsită</div>
         )}
       </div>
       <div className="assignment-wrapper needs-update">
-        <div className="h3 px-2 assignment-wrapper-title">Needs Update</div>
+        <div className="h3 px-2 assignment-wrapper-title">Necesită Modificări</div>
         {assignments &&
         assignments.filter((assignment) => assignment.status === "Needs Update")
           .length > 0 ? (
@@ -156,7 +156,7 @@ const CodeReviewerDashboard = () => {
               .map((assignment) => (
                 <Card style={{ width: "18rem" }}>
                   <Card.Body className="d-flex flex-column justify-content-around">
-                    <Card.Title>Assignment #{assignment.number}</Card.Title>
+                    <Card.Title>Lucrarea #{assignment.number}</Card.Title>
                     <div className="d-flex align-items-start">
                       <StatusBadge text={assignment.status}></StatusBadge>
                     </div>
@@ -174,14 +174,14 @@ const CodeReviewerDashboard = () => {
                         navigate(`/assignments/${assignment.id}`);
                       }}
                     >
-                      View
+                      Accesează
                     </Button>
                   </Card.Body>
                 </Card>
               ))}
           </div>
         ) : (
-          <div>No assignments found</div>
+          <div>Nici o lucrare găsită</div>
         )}
       </div>
     </Container>
