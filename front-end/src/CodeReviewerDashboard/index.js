@@ -74,6 +74,9 @@ const CodeReviewerDashboard = () => {
                       <p>
                         <b>Branch:</b> {assignment.branch}
                       </p>
+                      <p>
+                        <b>Depusă de:</b> {assignment.user.name}
+                      </p>
                     </Card.Text>
                     <Button
                       variant="secondary"
@@ -125,6 +128,9 @@ const CodeReviewerDashboard = () => {
                       <p>
                         <b>Branch:</b> {assignment.branch}
                       </p>
+                      <p>
+                        <b>Depusă de:</b> {assignment.user.name}
+                      </p>
                     </Card.Text>
                     <Button
                       variant="secondary"
@@ -166,6 +172,9 @@ const CodeReviewerDashboard = () => {
                       </p>
                       <p>
                         <b>Branch:</b> {assignment.branch}
+                      </p>
+                      <p>
+                        <b>Depusă de:</b> {assignment.user.name}
                       </p>
                     </Card.Text>
                     <Button
