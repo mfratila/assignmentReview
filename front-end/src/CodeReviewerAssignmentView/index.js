@@ -119,30 +119,30 @@ const CodeReviewerAssignmentView = () => {
             </Col>
           </Form.Group>
           <div className="d-flex gap-5">
-            {assignment.status === "Completed" ? (
+            {assignment.status === assignmentStatuses[4].status ? (
               <Button
                 size="lg"
                 variant="secondary"
                 onClick={() => save(assignmentStatuses[2].status)}
               >
-                Re-Claim
+                Revendică
               </Button>
             ) : (
               <Button
                 size="lg"
                 onClick={() => save(assignmentStatuses[4].status)}
               >
-                Complete Review
+                Completează Revizuirea
               </Button>
             )}
 
-            {assignment.status === "Needs Update" ? (
+            {assignment.status === assignmentStatuses[3].status ? (
               <Button
                 size="lg"
                 variant="secondary"
                 onClick={() => save(assignmentStatuses[2].status)}
               >
-                Re-Claim
+                Revendică din nou
               </Button>
             ) : (
               <Button
@@ -150,7 +150,7 @@ const CodeReviewerAssignmentView = () => {
                 variant="danger"
                 onClick={() => save(assignmentStatuses[3].status)}
               >
-                Reject Assignment
+                Respinge Lucrarea
               </Button>
             )}
 

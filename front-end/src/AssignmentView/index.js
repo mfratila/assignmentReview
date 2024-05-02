@@ -70,6 +70,7 @@ const AssignmentView = () => {
         setAssignment(assignmentData);
         setAssignmentEnums(assignmentResponse.assignmentEnums);
         setAssignmentStatuses(assignmentResponse.statusEnums);
+        console.log(setAssignmentStatuses);
       }
     );
   }, []);
@@ -140,7 +141,7 @@ const AssignmentView = () => {
               />
             </Col>
           </Form.Group>
-          {assignment.status === "Completed" ? (
+          {assignment.status === "Completat" ? (
             <div>
               <Form.Group
                 as={Row}
@@ -164,16 +165,16 @@ const AssignmentView = () => {
                 variant="secondary"
                 onClick={() => navigate("/dashboard")}
               >
-                Back
+                Mergi Înapoi
               </Button>
             </div>
-          ) : assignment.status === "Pending Submission" ? (
+          ) : assignment.status === "În așteptarea trimiterii" ? (
             <div className="d-flex gap-5">
               <Button
                 size="lg"
                 onClick={() => save(assignmentStatuses[1].status)}
               >
-                Submit Assignment
+                Depune Lucrarea
               </Button>
               <Button
                 size="lg"
@@ -189,14 +190,14 @@ const AssignmentView = () => {
                 size="lg"
                 onClick={() => save(assignmentStatuses[5].status)}
               >
-                Resubmit Assignment
+                Re-depune Lucrarea
               </Button>
               <Button
                 size="lg"
                 variant="secondary"
                 onClick={() => navigate("/dashboard")}
               >
-                Back
+                Mergi Înapoi
               </Button>
             </div>
           )}
