@@ -53,11 +53,6 @@ const AdminUserCreationView = () => {
     });
   }, []);
 
-  useEffect(() => {
-    console.log(userData);
-    console.log(authoritiesEnum);
-  }, [userData]);
-
   return (
     <Container className="mt-5">
       <Row className="d-flex align-items-center">
@@ -93,9 +88,7 @@ const AdminUserCreationView = () => {
               />
             </Col>
           </Form.Group>
-          {userData.password ? (
-            <></>
-          ) : (
+
             <Form.Group as={Row} className="mb-3" controlId="password">
               <Form.Label column sm="3" md="2">
                 Parola:
@@ -109,7 +102,6 @@ const AdminUserCreationView = () => {
                 />
               </Col>
             </Form.Group>
-          )}
 
           <Form.Group as={Row} className="my-3" controlId="authorities">
             <Form.Label column sm="3" md="2">
