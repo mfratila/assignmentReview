@@ -1,11 +1,12 @@
 import React from 'react'
 import NavigationBar from '../Navbar'
+import HomepagePresentationView from '../HomepagePresentationView'
 
 const Homepage = () => {
   return (
     <>
     <NavigationBar />
-        <h1>Homepage</h1>
+    <HomepagePresentationView />
     </>
 
   )
