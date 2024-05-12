@@ -19,11 +19,11 @@ const HomepagePresentationView = () => {
       <Container>
         <Row className="justify-content-center">
           <Col md={8} className="text-center">
-            <h1 className="mb-4">
+            <h1 id="welcome-msg" className="mb-4">
               Bine ai venit pe EasyClass - Platforma pentru Managementul și
               Documentarea Surselor de Cod!
             </h1>
-            <p className="lead">
+            <p id="general-desc" className="lead">
               EasyClass este o aplicație web inovatoare, proiectată pentru a
               oferi studenților și profesorilor un mediu eficient și organizat
               pentru gestionarea și documentarea surselor de cod. Cu ajutorul
@@ -75,12 +75,12 @@ const HomepagePresentationView = () => {
         </Row>
         <Row className="justify-content-center mt-5">
            <Col md={4} className="mb-4">
-            <Button variant="primary" size="lg" onClick={handleNavigateToDashboard} block>
+            <Button id="submit-assignment-btn" variant="primary" size="lg" onClick={handleNavigateToDashboard} block>
               Depune o Temă
             </Button>
           </Col>
           <Col md={4} className="mb-4">
-            <Button variant="primary" size="lg" onClick={handleNavigateToCourses} block>
+            <Button id="course-material-btn" variant="primary" size="lg" onClick={handleNavigateToCourses} block>
               Vizualizează Materialele Didactice
             </Button>
           </Col> 
