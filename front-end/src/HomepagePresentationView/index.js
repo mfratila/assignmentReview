@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../UserProvider";
+import { jwtDecode } from "jwt-decode";
 
 const HomepagePresentationView = () => {
   const navigate = useNavigate();
+  const user = useUser();
+
+  const [authorities, setAuthorities] = useState("");
+
+  function getRolesFromJwt() {
+      const decodedJwt = jwtDecode(user.jwt);
+      setAuthorities(decodedJwt.authorities[0]);
+  }
+
+  useEffect(() => {
+      getRolesFromJwt();
+      console.log(authorities);
+  },[authorities])
 
   function handleNavigateToDashboard() {
     navigate("/dashboard");
@@ -74,12 +89,24 @@ const HomepagePresentationView = () => {
         </Row>
         <Row className="justify-content-center mt-5">
            <Col md={4} className="mb-4">
-            <Button id="submit-assignment-btn" variant="primary" size="lg" onClick={handleNavigateToDashboard} block>
-              Depune o Temă
-            </Button>
+            {
+              authorities === 'ROLE_STUDENT' ? (
+                <Button id="submit-assignment-btn" variant="primary" size="lg" onClick={handleNavigateToDashboard} block = "true">
+                Depune o Temă
+              </Button>
+              ) : (authorities === 'ROLE_CODE_REVIEWER') ? (
+                <Button id="submit-assignment-btn" variant="primary" size="lg" onClick={handleNavigateToDashboard} block = "true">
+                Mergi la Temele Depuse
+              </Button>
+              ) : (
+                <Button id="submit-assignment-btn" variant="primary" size="lg" onClick={handleNavigateToDashboard} block = "true">
+                Mergi la Tabelul de Bord cu Utilizatori
+              </Button>
+              )
+            }
           </Col>
           <Col md={4} className="mb-4">
-            <Button id="course-material-btn" variant="primary" size="lg" onClick={handleNavigateToCourses} block>
+            <Button id="course-material-btn" variant="primary" size="lg" onClick={handleNavigateToCourses} block = "true">
               Vizualizează Materialele Didactice
             </Button>
           </Col> 
