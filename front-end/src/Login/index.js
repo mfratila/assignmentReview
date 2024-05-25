@@ -46,7 +46,7 @@ const Login = () => {
           <Col md="6">
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label className="fs-4">Nume Utilizator </Form.Label>
-              <Form.Control id="username"
+              <Form.Control
                 placeholder="joe@example.com"
                 size="lg"
                 type="email"
@@ -60,7 +60,7 @@ const Login = () => {
           <Col md="6">
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label className="fs-4">Parolă</Form.Label>
-              <Form.Control id="password"
+              <Form.Control
                 placeholder="Enter your password"
                 size="lg"
                 type="password"
