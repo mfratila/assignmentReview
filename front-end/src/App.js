@@ -22,7 +22,7 @@ function App() {
 
   useEffect(() => {
     setRoles(getRolesFromJwt());
-  }, [user.jwt])
+  }, [user.jwt]);
 
   function getRolesFromJwt() {
     // get role from jwt and assign via setRole;
@@ -63,8 +63,8 @@ function App() {
             </PrivateRoute>
           ) : roles.find((role) => role === "ROLE_ADMIN") ? (
             <PrivateRoute>
-            <AdminUserCreationView />
-          </PrivateRoute>
+              <AdminUserCreationView />
+            </PrivateRoute>
           ) : (
             <PrivateRoute>
               <AssignmentView />
@@ -73,31 +73,37 @@ function App() {
         }
       />
       <Route
-      path="/materiale-didactice"
-      element={(
-        <PrivateRoute>
-          <CourseListView />
-        </PrivateRoute>
-      )}
-      >
-      </Route>
+        path="/materiale-didactice"
+        element={
+          <PrivateRoute>
+            <CourseListView />
+          </PrivateRoute>
+        }
+      ></Route>
       <Route
-      path="/materiale-didactice/:id"
-      element={(
-        <PrivateRoute>
-          <CourseContentView />
-        </PrivateRoute>
-      )}
-      >
-      </Route>
+        path="/materiale-didactice/:id"
+        element={
+          <PrivateRoute>
+            <CourseContentView />
+          </PrivateRoute>
+        }
+      ></Route>
       <Route
-        path="/users/:userId" element={(
+        path="/users/:userId"
+        element={
           <PrivateRoute>
             <AdminUserCreationView />
           </PrivateRoute>
-        )}>
-      </Route>
-      <Route path="/" element={<Homepage />} />
+        }
+      ></Route>
+      <Route
+        path="/"
+        element={
+          <PrivateRoute>
+            <Homepage />
+          </PrivateRoute>
+        }
+      />
       <Route path="/login" element={<Login />} />
     </Routes>
   );
