@@ -55,14 +55,14 @@ const CodeReviewerDashboard = () => {
         <div className="assignment-wrapper in-review">
           <div className="h3 px-2 assignment-wrapper-title">In Revizuire</div>
           {assignments &&
-          assignments.filter((assignment) => assignment.status === "In Review")
+          assignments.filter((assignment) => assignment.status === "In Revizuire")
             .length > 0 ? (
             <div
               className="d-grid gap-5"
               style={{ gridTemplateColumns: "repeat(auto-fill, 18rem)" }}
             >
               {assignments
-                .filter((assignment) => assignment.status === "In Review")
+                .filter((assignment) => assignment.status === "In Revizuire")
                 .map((assignment) => (
                   <CodeReviewerAssignmentCard
                     assignment={assignment}
@@ -82,8 +82,8 @@ const CodeReviewerDashboard = () => {
           {assignments &&
           assignments.filter(
             (assignment) =>
-              assignment.status === "Submitted" ||
-              assignment.status === "Resubmitted"
+              assignment.status === "Trimis" ||
+              assignment.status === "Retrimis"
           ).length > 0 ? (
             <div
               className="d-grid gap-5"
@@ -92,11 +92,11 @@ const CodeReviewerDashboard = () => {
               {assignments
                 .filter(
                   (assignment) =>
-                    assignment.status === "Submitted" ||
-                    assignment.status === "Resubmitted"
+                    assignment.status === "Trimis" ||
+                    assignment.status === "Retrimis"
                 )
                 .sort((a, b) => {
-                  if (a.status === "Resubmitted") return -1;
+                  if (a.status === "Retrimis") return -1;
                   else return 1;
                 })
                 .map((assignment) => (
@@ -117,14 +117,14 @@ const CodeReviewerDashboard = () => {
           </div>
           {assignments &&
           assignments.filter(
-            (assignment) => assignment.status === "Needs Update"
+            (assignment) => assignment.status === "Necesită Modificări"
           ).length > 0 ? (
             <div
               className="d-grid gap-5"
               style={{ gridTemplateColumns: "repeat(auto-fill, 18rem)" }}
             >
               {assignments
-                .filter((assignment) => assignment.status === "Needs Update")
+                .filter((assignment) => assignment.status === "Necesită Modificări")
                 .map((assignment) => (
                   <CodeReviewerAssignmentCard
                     assignment={assignment}
