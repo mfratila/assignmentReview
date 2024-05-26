@@ -33,7 +33,7 @@ const Dashboard = () => {
 
   return (
     <>
-    <NavigationBar />
+    <NavigationBar id = "studentNavigationBar" />
       <div style={{ margin: "2em" }}>
         <Row>
           <Col>
@@ -41,7 +41,7 @@ const Dashboard = () => {
         </Row>
         {assignments.length < 14 ? (
           <div className="mb-4">
-            <Button size="lg" onClick={() => createAssignment()}>
+            <Button id="createAssignmentBtn" size="lg" onClick={() => createAssignment()}>
               Trimite o nouă temă
             </Button>
           </div>
@@ -54,8 +54,8 @@ const Dashboard = () => {
             className="d-grid gap-5"
             style={{ gridTemplateColumns: "repeat(auto-fill, 18rem)" }}
           >
-            {assignments.map((assignment) => (
-              <StudentAssignmentCard assignment={assignment} assignmentName={getAssignmentName(assignment.number)} />
+            {assignments.map((assignment, index) => (
+              <StudentAssignmentCard key={assignment.id} id = {`studentAssignmentCard-${index}`} assignment={assignment} assignmentName={getAssignmentName(assignment.number)} />
             ))}
           </div>
         ) : (
