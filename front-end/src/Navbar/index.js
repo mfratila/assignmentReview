@@ -12,15 +12,15 @@ const NavigationBar = () => {
     <>
         <Navbar bg="primary" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand><b>EasyClass</b></Navbar.Brand>
+          <Navbar.Brand id='navbar-brand'><b>EasyClass</b></Navbar.Brand>
           <Nav className="me-auto me-5">
-          <Nav.Link href="/">Acasa</Nav.Link>
-          <Nav.Link href="/dashboard">Tabel de Bord</Nav.Link>
-          <Nav.Link href="/materiale-didactice">Suport Teoretic Lucrări</Nav.Link>
+          <Nav.Link id='navbar-home-link' href="/">Acasa</Nav.Link>
+          <Nav.Link id='navbar-dashboard-link' href="/dashboard">Tabel de Bord</Nav.Link>
+          <Nav.Link id='navbar-theoretical-courses-link' href="/materiale-didactice">Suport Teoretic Lucrări</Nav.Link>
             </Nav>
             <Nav className="ms-auto">
               {user.jwt !== null ? (
-              <Button
+              <Button id ='navbar-logout-btn'
                 variant="secondary"
                 onClick={() => {
                   user.setJwt(null);
@@ -29,7 +29,7 @@ const NavigationBar = () => {
               >
                 Logout
               </Button>) : (
-                <Button
+                <Button id='navbar-login-btn'
                 variant="secondary"
                 onClick={() => {
                   navigate("/login");
