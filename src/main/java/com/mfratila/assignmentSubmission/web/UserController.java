@@ -1,6 +1,7 @@
 package com.mfratila.assignmentSubmission.web;
 
 import com.mfratila.assignmentSubmission.domain.User;
+import com.mfratila.assignmentSubmission.dto.ExistingUserDto;
 import com.mfratila.assignmentSubmission.dto.UserDto;
 import com.mfratila.assignmentSubmission.dto.UserRequestDto;
 import com.mfratila.assignmentSubmission.dto.UserResponseDto;
@@ -48,6 +49,13 @@ public class UserController {
                                         @RequestBody UserDto updatedUser) {
        UserDto updatedUserDto = userService.updateUser(updatedUser, userId);
        return ResponseEntity.ok(updatedUserDto);
+    }
+
+    @PutMapping("/existing/{userId}")
+    public ResponseEntity<?> updateExistingUser(@PathVariable Long userId,
+                                                @RequestBody ExistingUserDto updatedUser) {
+        UserDto updatedUserDto = userService.updateExistingUser(updatedUser, userId);
+        return ResponseEntity.ok(updatedUserDto);
     }
 
 

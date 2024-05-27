@@ -11,16 +11,15 @@ const StudentAssignmentCard = ({id, assignment, assignmentName}) => {
         <>
             <Card id = {id} key={assignment.id} style={{ width: "18rem" }}>
                 <Card.Body className="d-flex flex-column justify-content-around">
-                    <Card.Title id='card-title'>Assignment #{assignment.number}</Card.Title>
+                    <Card.Title id='card-title'>Lucrarea #{assignment.number} - {assignment.title}</Card.Title>
                     <Card.Subtitle id='card-subtitle' className="mb-2 text-muted">
                         {assignmentName}
                     </Card.Subtitle>
                     <div className="d-flex align-items-start">
                         <StatusBadge id='status-badge' text={assignment.status}></StatusBadge>
                     </div>
-                    <Card.Text id='status-badge'>
-                        Some quick example text to build on the card title and make
-                        up the bulk of the card's content.
+                    <Card.Text id='assignment-desc'>
+                        {assignment.description}
                     </Card.Text>
                     <Card.Text id='github-url-text' style={{ marginTop: "1em" }}>
                             <b>GitHub URL:</b> {assignment.githubUrl}

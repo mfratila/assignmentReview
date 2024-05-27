@@ -2,6 +2,7 @@ package com.mfratila.assignmentSubmission.service;
 
 import com.mfratila.assignmentSubmission.domain.Authority;
 import com.mfratila.assignmentSubmission.domain.User;
+import com.mfratila.assignmentSubmission.dto.ExistingUserDto;
 import com.mfratila.assignmentSubmission.dto.UserDto;
 import com.mfratila.assignmentSubmission.enums.AuthorityEnum;
 import com.mfratila.assignmentSubmission.repository.AuthorityRepository;
@@ -84,6 +85,16 @@ public class UserService {
         userToBeUpdated.setName(userDto.getName());
         String encodedPassword = passwordEncoder.encode(userDto.getPassword());
         userToBeUpdated.setPassword(encodedPassword);
+
+        userRepository.save(userToBeUpdated);
+        return getUserDtoFromUser(userToBeUpdated);
+    }
+
+    public UserDto updateExistingUser(ExistingUserDto userDto, Long updatedUserId) {
+        User userToBeUpdated = userRepository.findById(updatedUserId).orElseThrow(IllegalStateException::new);
+        userToBeUpdated.setUsername(userDto.getUsername());
+        userToBeUpdated.setAuthorities(convertAuthorityFromString(userDto.getAuthority(), userToBeUpdated));
+        userToBeUpdated.setName(userDto.getName());
 
         userRepository.save(userToBeUpdated);
         return getUserDtoFromUser(userToBeUpdated);

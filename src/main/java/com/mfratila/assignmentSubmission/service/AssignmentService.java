@@ -2,6 +2,7 @@ package com.mfratila.assignmentSubmission.service;
 
 import com.mfratila.assignmentSubmission.domain.Assignment;
 import com.mfratila.assignmentSubmission.domain.User;
+import com.mfratila.assignmentSubmission.enums.AssignmentEnum;
 import com.mfratila.assignmentSubmission.enums.AssignmentStatusEnum;
 import com.mfratila.assignmentSubmission.enums.AuthorityEnum;
 import com.mfratila.assignmentSubmission.repository.AssignmentRepository;
@@ -20,7 +21,6 @@ public class AssignmentService {
     public Assignment save(User user) {
         Assignment assignment = new Assignment();
         assignment.setStatus(AssignmentStatusEnum.PENDING_SUBMISSION.getStatus());
-        assignment.setNumber(findNextAssignmentToSubmit(user));
         assignment.setUser(user);
 
         return assignmentRepository.save(assignment);
@@ -65,6 +65,12 @@ public class AssignmentService {
     }
 
     public Assignment save(Assignment assignment) {
+        if (assignment.getNumber() != null){
+            AssignmentEnum assignmentEnum = AssignmentEnum.findByNumber(assignment.getNumber());
+            assignment.setTitle(assignmentEnum.getAssignmentName());
+            assignment.setDescription(assignmentEnum.getAssignmentSubtitle());
+            assignment.setDescription(assignmentEnum.getAssignmentDesc());
+        }
         return assignmentRepository.save(assignment);
     }
 }

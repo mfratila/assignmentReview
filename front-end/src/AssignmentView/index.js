@@ -26,9 +26,10 @@ const AssignmentView = () => {
     number: null,
     status: null,
   });
-
   const [assignmentEnums, setAssignmentEnums] = useState([]);
+  const [assignments, setAssignments] = useState([]);
   const [assignmentStatuses, setAssignmentStatuses] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const previousAssignmentValue = useRef(assignment);
 
@@ -39,6 +40,11 @@ const AssignmentView = () => {
   }
 
   async function save(status) {
+    if (assignment.number === null) {
+      setErrorMessage("Please select an assignment number.");
+      return;
+    }
+
     if (status && assignment.status !== status) {
       updateAssignment("status", status);
     } else {
@@ -70,16 +76,31 @@ const AssignmentView = () => {
         setAssignment(assignmentData);
         setAssignmentEnums(assignmentResponse.assignmentEnums);
         setAssignmentStatuses(assignmentResponse.statusEnums);
-        console.log(setAssignmentStatuses);
       }
     );
+    ajax(`/api/assignments`, "GET", user.jwt).then((assignmentResponse) => {
+      let assignmentsData = assignmentResponse.assignments;
+      setAssignments(assignmentsData);
+    });
   }, []);
+
+  const assignedNumbers = new Set(
+    assignments.map((assignment) => assignment.number)
+  );
+
+  const filteredAssignmentEnums = assignmentEnums.filter(
+    (assignmentEnum) => !assignedNumbers.has(assignmentEnum.assignmentNum)
+  );
 
   return (
     <Container className="mt-5">
       <Row className="d-flex align-items-center">
         <Col>
-          {assignment.number ? <h1>Assignment {assignment.number}</h1> : <></>}
+          {assignment.number !== null ? (
+            <h1>Lucrarea #{assignment.number}</h1>
+          ) : (
+            <>Lucrare nouă</>
+          )}
         </Col>
         <Col>
           <StatusBadge text={assignment.status}></StatusBadge>
@@ -96,15 +117,16 @@ const AssignmentView = () => {
                 as={ButtonGroup}
                 variant="info"
                 title={
-                  assignment.number
+                  assignment.number !== null
                     ? `Assignment ${assignment.number}`
                     : "Select an Assignment"
                 }
                 onSelect={(selectedElement) => {
+                  setErrorMessage(""); // Clear error message on selection
                   updateAssignment("number", selectedElement);
                 }}
               >
-                {assignmentEnums.map((assignmentEnum) => (
+                {filteredAssignmentEnums.map((assignmentEnum) => (
                   <Dropdown.Item
                     key={assignmentEnum.assignmentNum}
                     eventKey={assignmentEnum.assignmentNum}
@@ -113,6 +135,11 @@ const AssignmentView = () => {
                   </Dropdown.Item>
                 ))}
               </DropdownButton>
+              {errorMessage && (
+                <div style={{ color: "red", marginTop: "10px" }}>
+                  {errorMessage}
+                </div>
+              )}
             </Col>
           </Form.Group>
           <Form.Group as={Row} className="my-3" controlId="githubUrl">
@@ -134,7 +161,7 @@ const AssignmentView = () => {
             </Form.Label>
             <Col sm="9" md="8" lg="6">
               <Form.Control
-                type="url"
+                type="text"
                 placeholder="example_branch_name"
                 onChange={(e) => updateAssignment("branch", e.target.value)}
                 value={assignment.branch}
