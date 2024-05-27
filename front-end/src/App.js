@@ -13,6 +13,7 @@ import CodeReviewerAssignmentView from "./CodeReviewerAssignmentView/index.js";
 import { useUser } from "./UserProvider/index.js";
 import AdminDashboard from "./AdminDashboard/index.js";
 import AdminUserCreationView from "./AdminUserCreationView/index.js";
+import AdminUserUpdateView from "./AdminUserUpdateView/index.js";
 import CourseListView from "./CourseListView/index.js";
 import CourseContentView from "./CourseContentView/index.js";
 
@@ -93,6 +94,14 @@ function App() {
         element={
           <PrivateRoute>
             <AdminUserCreationView />
+          </PrivateRoute>
+        }
+      ></Route>
+      <Route
+        path="/users/existing/:userId"
+        element={
+          <PrivateRoute>
+            <AdminUserUpdateView />
           </PrivateRoute>
         }
       ></Route>

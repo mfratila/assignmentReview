@@ -18,7 +18,7 @@ const AdminDashboard = () => {
   }
 
   function editUser(userId) {
-    navigate(`/users/${userId}`);
+    navigate(`/users/existing/${userId}`);
   }
 
   useEffect(() => {
@@ -35,47 +35,47 @@ const AdminDashboard = () => {
     <>
       <div className="page-title-container">
       <div className="d-flex justify-content-end">
-            <Button variant="secondary" onClick={() => {
+            <Button id='logout-btn' variant="secondary" onClick={() => {
               user.setJwt(null);
               navigate("/login");
             }}>Logout</Button>
           </div>
         <div className="container mt-5 text-center">
-          <h1 className="display-3 font-weight-bold custom-title">
+          <h1 id="dashboard-title" className="display-3 font-weight-bold custom-title">
             Tabel de Bord Administrator
           </h1>
-          <p className="lead custom-subtitle">
+          <p id="dashboard-desc" className="lead custom-subtitle">
             Vizualizeaza utilizatorii curenti sau creaza noi utilizatori.
           </p>
         </div>
       </div>
       <div className="mb-4 mt-4">
-        <Button size="lg" onClick={() => createUser()}>
+        <Button id="create-user-btn" size="lg" onClick={() => createUser()}>
           Creaza Utilizator Nou
         </Button>
       </div>
       <div className="mt-5">
-        <h3 className="font-weight-bold">Tabela Utilizatori</h3>
+        <h3 id='table-title' className="font-weight-bold">Tabela Utilizatori</h3>
         {users !== null ? (
-          <Table striped bordered hover size="sm">
+          <Table id="users-table" striped bordered hover size="sm">
             <thead>
               <tr>
-                <th className="text-center">User ID</th>
-                <th className="text-center">Username</th>
-                <th className="text-center">Role</th>
-                <th className="text-center">Full Name</th>
+                <th id="id-table-header" className="text-center">User ID</th>
+                <th id="username-table-header" className="text-center">Username</th>
+                <th id="role-table-header" className="text-center">Role</th>
+                <th id="fullname-table-header" className="text-center">Full Name</th>
                 <th> </th>
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
-                <tr key={user.id}>
-                  <td className="text-center">{user.id}</td>
-                  <td className="text-center">{user.username}</td>
-                  <td className="text-center">{user.authority}</td>
-                  <td className="text-center">{user.name}</td>
+              {users.map((user, index) => (
+                <tr id={`user-table-entry-${index}`} key={user.id}>
+                  <td id="user-id" className="text-center">{user.id}</td>
+                  <td id="user-username" className="text-center">{user.username}</td>
+                  <td id="user-authority" className="text-center">{user.authority}</td>
+                  <td id="user-fullname" className="text-center">{user.name}</td>
                   <td className="text-center">
-                    <Button size="lg" onClick={() => editUser(user.id)}>
+                    <Button id="edit-user-btn" size="lg" onClick={() => editUser(user.id)}>
                       Editeaza Utilizator
                     </Button>
                   </td>

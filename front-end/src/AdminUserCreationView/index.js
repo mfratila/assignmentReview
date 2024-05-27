@@ -57,14 +57,14 @@ const AdminUserCreationView = () => {
     <Container className="mt-5">
       <Row className="d-flex align-items-center">
         <Col>
-          <h1>Create User </h1>
+          <h1 id="user-creation-title" >Create User </h1>
         </Col>
       </Row>
       {userData ? (
         <>
-          <Form.Group as={Row} className="my-3" controlId="username">
-            <Form.Label column sm="3" md="2">
-              Nume Utilizator:
+          <Form.Group as={Row} className="my-3" controlId="email-input">
+            <Form.Label id="username-form-label" column sm="3" md="2">
+              Email Utilizator:
             </Form.Label>
             <Col sm="9" md="8" lg="6">
               <Form.Control
@@ -75,8 +75,8 @@ const AdminUserCreationView = () => {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} className="my-3" controlId="name">
-            <Form.Label column sm="3" md="2">
+          <Form.Group as={Row} className="my-3" controlId="fullname-input">
+            <Form.Label id="fullname-form-label" column sm="3" md="2">
               Nume Complet:
             </Form.Label>
             <Col sm="9" md="8" lg="6">
@@ -89,26 +89,26 @@ const AdminUserCreationView = () => {
             </Col>
           </Form.Group>
 
-            <Form.Group as={Row} className="mb-3" controlId="password">
-              <Form.Label column sm="3" md="2">
-                Parola:
-              </Form.Label>
-              <Col sm="9" md="8" lg="6">
-                <Form.Control
-                  type="url"
-                  placeholder="%$#@!kfdsifs^%a421"
-                  onChange={(e) => updateUser("password", e.target.value)}
-                  value={userData.password}
-                />
-              </Col>
-            </Form.Group>
+          <Form.Group as={Row} className="mb-3" controlId="password-input">
+            <Form.Label id="password-form-label" column sm="3" md="2">
+              Parola:
+            </Form.Label>
+            <Col sm="9" md="8" lg="6">
+              <Form.Control
+                type="url"
+                placeholder="%$#@!kfdsifs^%a421"
+                onChange={(e) => updateUser("password", e.target.value)}
+                value={userData.password}
+              />
+            </Col>
+          </Form.Group>
 
-          <Form.Group as={Row} className="my-3" controlId="authorities">
-            <Form.Label column sm="3" md="2">
+          <Form.Group as={Row} className="my-3" controlId="authorities-input">
+            <Form.Label id="role-form-label" column sm="3" md="2">
               Rol Utilizator:
             </Form.Label>
             <Col sm="9" md="8" lg="6">
-              <DropdownButton
+              <DropdownButton id="roles-dropdown-btn"
                 as={ButtonGroup}
                 variant="info"
                 title={
@@ -120,8 +120,8 @@ const AdminUserCreationView = () => {
                   updateUser("authority", selectedElement);
                 }}
               >
-                {authoritiesEnum.map((authorityEnum) => (
-                  <Dropdown.Item key={authorityEnum} eventKey={authorityEnum}>
+                {authoritiesEnum.map((authorityEnum, index) => (
+                  <Dropdown.Item id={`role-dropdown-selection-${index}`} key={authorityEnum} eventKey={authorityEnum}>
                     {authorityEnum}
                   </Dropdown.Item>
                 ))}
@@ -129,10 +129,10 @@ const AdminUserCreationView = () => {
             </Col>
           </Form.Group>
           <div className="d-flex gap-5">
-            <Button size="lg" onClick={handleSubmit}>
+            <Button id="confirm-create-user-btn" size="lg" onClick={handleSubmit}>
               Creaza Utilizator
             </Button>
-            <Button
+            <Button id="back-btn"
               size="lg"
               variant="secondary"
               onClick={() => navigate("/dashboard")}
