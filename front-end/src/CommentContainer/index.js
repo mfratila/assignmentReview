@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ajax from "../Services/fetchService";
 import { useUser } from "../UserProvider";
 import { Button } from "react-bootstrap";
@@ -9,13 +9,14 @@ import dayjs from "dayjs";
 const CommentContainer = (props) => {
   const { assignmentId } = props;
   const user = useUser();
+  const commentInputRef = useRef(null);
 
   const emptyComment = {
     id: null,
     text: "",
     assignmentId: assignmentId != null ? parseInt(assignmentId) : null,
     user: user.jwt,
-    createdDate: null
+    createdDate: null,
   };
   const [comment, setComment] = useState(emptyComment);
   const [comments, setComments] = useState([]);
@@ -23,6 +24,7 @@ const CommentContainer = (props) => {
   useInterval(() => {
     updateCommentTimeDisplay();
   }, 1000 * 5);
+
   function updateCommentTimeDisplay() {
     const commentsCopy = [...comments];
     commentsCopy.forEach(
@@ -69,9 +71,12 @@ const CommentContainer = (props) => {
       text: comments[i].text,
       assignmentId: assignmentId != null ? parseInt(assignmentId) : null,
       user: user.jwt,
-      createdDate: comments[i].createdDate
+      createdDate: comments[i].createdDate,
     };
     setComment(commentCopy);
+    if (commentInputRef.current) {
+      commentInputRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   }
 
   function handleDeleteComment(commentId) {
@@ -100,7 +105,7 @@ const CommentContainer = (props) => {
       user.jwt,
       null
     ).then((commentsData) => {
-        formatComments(commentsData);
+      formatComments(commentsData);
     });
   }, []);
 
@@ -108,18 +113,19 @@ const CommentContainer = (props) => {
     <>
       <div className="mt-4">
         <textarea
+          ref={commentInputRef}
           id="commentInput"
           style={{ width: "100%", borderRadius: "0.25em" }}
           onChange={(e) => updateComment(e.target.value)}
           value={comment.text}
         ></textarea>
-        <Button onClick={() => submitComment()}>Post Comment</Button>
+        <Button onClick={() => submitComment()}>Adaugă Comentariu</Button>
       </div>
       <div className="mt-5">
-        {comments.map((comment) => (
+        {comments.map((comment, index) => (
           <Comment
             key={comment.id}
-            id={comment.id}
+            id={`comment-${index}`}
             createdDate={comment.createdDate}
             createdBy={comment.createdBy}
             text={comment.text}

@@ -5,14 +5,14 @@ const StatusBadge = (props) => {
   const { text } = props;
 
   function getBadgeColor() {
-    if (text === "Completed") return "success";
-    else if (text === "Needs Update") return "danger";
+    if (text === "Completat") return "success";
+    else if (text === "Necesită Modificări") return "danger";
     else if (text === "Pending Submission") return "warning";
-    else if (text === "Resubmitted") return "primary";
+    else if (text === "În așteptarea trimiterii") return "primary";
     else return "info";
   }
   return (
-    <Badge pill bg={getBadgeColor()} style={{ fontSize: "1em" }}>
+    <Badge id="status-badge" pill bg={getBadgeColor()} style={{ fontSize: "1em" }}>
       {text}
     </Badge>
   );

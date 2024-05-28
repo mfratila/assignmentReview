@@ -3,7 +3,7 @@ import { Card, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 
-function CourseCard({ cardData }) {
+function CourseCard({ id, cardData }) {
 
     const navigate = useNavigate();
 
@@ -12,16 +12,16 @@ function CourseCard({ cardData }) {
     }
 
     return (
-        <Card style={{ width: '18rem', margin: 'auto' }}>
+        <Card id={id} style={{ width: '18rem', margin: 'auto' }}>
             <Card.Body className="text-center">
-                <Card.Title>{cardData.title}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
+                <Card.Title id='card-title'>{cardData.title}</Card.Title>
+                <Card.Subtitle id='card-subtitle' className="mb-2 text-muted">
                     {cardData.subtitle}
                 </Card.Subtitle>    
-                <Card.Text>
+                <Card.Text id='card-text'>
                     {cardData.description}
                 </Card.Text>
-                <Button variant="primary" onClick={handleAccess}>Acceseaza</Button>
+                <Button id='navigate-to-course-btn' variant="primary" onClick={handleAccess}>Accesează</Button>
             </Card.Body>
         </Card>
     );

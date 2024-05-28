@@ -30,23 +30,23 @@ function DetailedInfo() {
             <Row className="justify-content-center">
                 <Col md={8}>
                     <Card>
-                        <Card.Header as="h5">Lucrararea {id} - {project.title}</Card.Header>
+                        <Card.Header id='course-title' as="h5">Lucrararea {id} - {project.title}</Card.Header>
                         <Card.Body>
                             <Card.Title>Descriere</Card.Title>
-                            <Card.Text>{project.description}</Card.Text>
+                            <Card.Text id='course-desc'>{project.description}</Card.Text>
                             <Card.Title>Scopul Lucrării</Card.Title>
-                            <Card.Text>{project.purpose}</Card.Text>
+                            <Card.Text id='course-content'>{project.purpose}</Card.Text>
                             <Card.Title>Pasi de urmat</Card.Title>
                             <ul>
                                 {project.steps.map((step, index) => {
-                                    return <li><Card.Text key={index}>{step}</Card.Text></li>
+                                    return <li><Card.Text id={`course-step-${index}`} key={index}>{step}</Card.Text></li>
                                 })
                                 }
                             </ul>
                             <div className='d-flex justify-content-between'>
-                                <Button variant="secondary" onClick={handleBack} >Mergi Inapoi</Button>
+                                <Button id='back-btn' variant="secondary" onClick={handleBack} >Mergi Inapoi</Button>
                                 {
-                                    id < 14 ? (<Button variant="primary" onClick={handleNext} >Mergi la Urmatorul</Button>) : (<></>)
+                                    id < 14 ? (<Button id='next-couse-btn' variant="primary" onClick={handleNext} >Mergi la Urmatorul</Button>) : (<></>)
                                 }
                             </div>
                         </Card.Body>

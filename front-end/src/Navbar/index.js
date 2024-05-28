@@ -3,14 +3,14 @@ import { Navbar, Container, Nav, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../UserProvider';
 
-const NavigationBar = () => {
+const NavigationBar = ({ id }) => {
 
     const navigate = useNavigate();
     const user = useUser();
 
   return (
     <>
-        <Navbar bg="primary" data-bs-theme="dark">
+        <Navbar id={id} bg="primary" data-bs-theme="dark">
         <Container>
           <Navbar.Brand id='navbar-brand'><b>EasyClass</b></Navbar.Brand>
           <Nav className="me-auto me-5">

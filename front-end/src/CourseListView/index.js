@@ -13,7 +13,7 @@ function CourseListView() {
                 <Row>
                     {data.cardsInfo.map((card, index) => (
                         <Col className='mb-4' key={index} sm={12} md={6} lg={4} xl={3}>
-                            <CourseCard cardData={card} />
+                            <CourseCard id={`course-card-${index}`} cardData={card} />
                         </Col>
                     ))}
                 </Row>

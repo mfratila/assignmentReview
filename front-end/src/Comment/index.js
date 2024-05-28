@@ -41,13 +41,13 @@ const Comment = (props) => {
           <div>{`${createdBy.name}: `}</div>
           {decodedJwt.sub === createdBy.username ? (
             <>
-              <div
+              <div id="edit-comment"
                 onClick={() => emitEditComment(id)}
                 style={{ cursor: "pointer", color: "blue" }}
               >
                 edit
               </div>
-              <div
+              <div id="delete-comment"
                 onClick={() => emitDeleteComment(id)}
                 style={{ cursor: "pointer", color: "red" }}
               >
@@ -58,9 +58,9 @@ const Comment = (props) => {
             <></>
           )}
         </div>
-        <div>{text}</div>
+        <div id="comment-text">{text}</div>
       </div>
-      <div
+      <div id="posted-time"
         style={{ marginTop: "-0.9em", marginLeft: "1.4em", fontSize: "14px" }}
       >
         {commentRelativeTime ? `Posted ${commentRelativeTime}`: ""}

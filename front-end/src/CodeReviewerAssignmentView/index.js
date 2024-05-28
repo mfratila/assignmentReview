@@ -66,8 +66,8 @@ const CodeReviewerAssignmentView = () => {
   return (
     <Container className="mt-5">
       <Row className="d-flex align-items-center">
-        <Col>
-          {assignment.number ? <h1>Assignment {assignment.number}</h1> : <></>}
+        <Col id="assignment-title">
+          {assignment.number ? <h1>Assignment {assignment.number} - {assignment.title}</h1> : <></>}
         </Col>
         <Col>
           <StatusBadge text={assignment.status}></StatusBadge>
@@ -75,7 +75,7 @@ const CodeReviewerAssignmentView = () => {
       </Row>
       {assignment ? (
         <>
-          <Form.Group as={Row} className="my-3" controlId="githubUrl">
+          <Form.Group as={Row} className="my-3" controlId="githubUrl-input">
             <Form.Label column sm="3" md="2">
               GitHub URL:
             </Form.Label>
@@ -89,7 +89,7 @@ const CodeReviewerAssignmentView = () => {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} className="mb-3" controlId="gitHubBranch">
+          <Form.Group as={Row} className="mb-3" controlId="gitHubBranch-input">
             <Form.Label column sm="3" md="2">
               Branch:
             </Form.Label>
@@ -103,7 +103,7 @@ const CodeReviewerAssignmentView = () => {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} className="mb-3" controlId="gitHubBranch">
+          <Form.Group as={Row} className="mb-3" controlId="reviewVideoUrl-input">
             <Form.Label column sm="3" md="2">
               Video Review URL:
             </Form.Label>
@@ -120,7 +120,7 @@ const CodeReviewerAssignmentView = () => {
           </Form.Group>
           <div className="d-flex gap-5">
             {assignment.status === assignmentStatuses[4].status ? (
-              <Button
+              <Button id="take-to-review-btn"
                 size="lg"
                 variant="secondary"
                 onClick={() => save(assignmentStatuses[2].status)}
@@ -128,7 +128,7 @@ const CodeReviewerAssignmentView = () => {
                 Revendică
               </Button>
             ) : (
-              <Button
+              <Button id="complete-review-btn"
                 size="lg"
                 onClick={() => save(assignmentStatuses[4].status)}
               >
@@ -137,7 +137,7 @@ const CodeReviewerAssignmentView = () => {
             )}
 
             {assignment.status === assignmentStatuses[3].status ? (
-              <Button
+              <Button id="take-review-again-btn"
                 size="lg"
                 variant="secondary"
                 onClick={() => save(assignmentStatuses[2].status)}
@@ -145,7 +145,7 @@ const CodeReviewerAssignmentView = () => {
                 Revendică din nou
               </Button>
             ) : (
-              <Button
+              <Button id="decline-assignment-btn"
                 size="lg"
                 variant="danger"
                 onClick={() => save(assignmentStatuses[3].status)}
@@ -154,12 +154,12 @@ const CodeReviewerAssignmentView = () => {
               </Button>
             )}
 
-            <Button
+            <Button id="back-btn"
               size="lg"
               variant="secondary"
               onClick={() => navigate("/dashboard")}
             >
-              Back
+              Mergi Înapoi
             </Button>
           </div>
 

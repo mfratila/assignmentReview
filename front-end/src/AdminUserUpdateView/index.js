@@ -114,7 +114,7 @@ const AdminUserCreationView = () => {
           </Form.Group>
           <div className="d-flex gap-5">
             <Button id="confirm-create-user-btn" size="lg" onClick={handleSubmit}>
-              Creaza Utilizator
+              Modifică Utilizator
             </Button>
             <Button id="back-btn"
               size="lg"

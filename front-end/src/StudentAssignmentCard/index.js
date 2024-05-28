@@ -3,7 +3,7 @@ import StatusBadge from "../StatusBadge";
 import { Card, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-const StudentAssignmentCard = ({id, assignment, assignmentName}) => {
+const StudentAssignmentCard = ({id, assignment}) => {
 
     const navigate = useNavigate();
 
@@ -13,7 +13,7 @@ const StudentAssignmentCard = ({id, assignment, assignmentName}) => {
                 <Card.Body className="d-flex flex-column justify-content-around">
                     <Card.Title id='card-title'>Lucrarea #{assignment.number} - {assignment.title}</Card.Title>
                     <Card.Subtitle id='card-subtitle' className="mb-2 text-muted">
-                        {assignmentName}
+                        {assignment.subtitle}
                     </Card.Subtitle>
                     <div className="d-flex align-items-start">
                         <StatusBadge id='status-badge' text={assignment.status}></StatusBadge>

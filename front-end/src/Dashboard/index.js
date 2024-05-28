@@ -25,12 +25,6 @@ const Dashboard = () => {
     });
   }
 
-    // Helper function to get assignment name based on assignmentNum
-    const getAssignmentName = (assignmentNum) => {
-      const matchingEnum = assignmentEnums.find((enumItem) => enumItem.assignmentNum === assignmentNum);
-      return matchingEnum ? matchingEnum.assignmentName : 'Unknown Assignment';
-    };
-
   return (
     <>
     <NavigationBar id = "studentNavigationBar" />
@@ -55,7 +49,7 @@ const Dashboard = () => {
             style={{ gridTemplateColumns: "repeat(auto-fill, 18rem)" }}
           >
             {assignments.map((assignment, index) => (
-              <StudentAssignmentCard key={assignment.id} id = {`studentAssignmentCard-${index}`} assignment={assignment} assignmentName={getAssignmentName(assignment.number)} />
+              <StudentAssignmentCard key={assignment.id} id = {`studentAssignmentCard-${index}`} assignment={assignment} />
             ))}
           </div>
         ) : (

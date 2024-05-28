@@ -5,7 +5,7 @@ import HomepagePresentationView from '../HomepagePresentationView'
 const Homepage = () => {
   return (
     <>
-    <NavigationBar />
+    <NavigationBar id='navigation-bar' />
     <HomepagePresentationView />
     </>
 

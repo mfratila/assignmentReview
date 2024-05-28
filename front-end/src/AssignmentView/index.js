@@ -41,7 +41,7 @@ const AssignmentView = () => {
 
   async function save(status) {
     if (assignment.number === null) {
-      setErrorMessage("Please select an assignment number.");
+      setErrorMessage("Te rog selectează numărul lucrării.");
       return;
     }
 
@@ -110,10 +110,10 @@ const AssignmentView = () => {
         <>
           <Form.Group as={Row} className="my-3" controlId="assignmentName">
             <Form.Label column sm="3" md="2">
-              Numarul Lucrarii:
+              Numărul Lucrarii:
             </Form.Label>
             <Col sm="9" md="8" lg="6">
-              <DropdownButton
+              <DropdownButton id='assignment-number-dropdown'
                 as={ButtonGroup}
                 variant="info"
                 title={
@@ -127,7 +127,7 @@ const AssignmentView = () => {
                 }}
               >
                 {filteredAssignmentEnums.map((assignmentEnum) => (
-                  <Dropdown.Item
+                  <Dropdown.Item id={`assignment-number-${assignmentEnum.assignmentNum}`}
                     key={assignmentEnum.assignmentNum}
                     eventKey={assignmentEnum.assignmentNum}
                   >
@@ -136,13 +136,13 @@ const AssignmentView = () => {
                 ))}
               </DropdownButton>
               {errorMessage && (
-                <div style={{ color: "red", marginTop: "10px" }}>
+                <div id="error-message" style={{ color: "red", marginTop: "10px" }}>
                   {errorMessage}
                 </div>
               )}
             </Col>
           </Form.Group>
-          <Form.Group as={Row} className="my-3" controlId="githubUrl">
+          <Form.Group as={Row} className="my-3" controlId="githubUrl-input">
             <Form.Label column sm="3" md="2">
               GitHub URL:
             </Form.Label>
@@ -155,7 +155,7 @@ const AssignmentView = () => {
               />
             </Col>
           </Form.Group>
-          <Form.Group as={Row} className="mb-3" controlId="gitHubBranch">
+          <Form.Group as={Row} className="mb-3" controlId="gitHubBranch-input">
             <Form.Label column sm="3" md="2">
               Branch:
             </Form.Label>
@@ -173,10 +173,10 @@ const AssignmentView = () => {
               <Form.Group
                 as={Row}
                 className="d-flex align-items-center mb-3"
-                controlId="codeReviewVideoUrl"
+                controlId="codeReviewVideoUrl-input"
               >
                 <Form.Label column sm="3" md="2">
-                  Code Review Video URL:
+                  Revizuire Cod Video URL:
                 </Form.Label>
                 <Col sm="9" md="8" lg="6">
                   <a
@@ -187,7 +187,7 @@ const AssignmentView = () => {
                   </a>
                 </Col>
               </Form.Group>
-              <Button
+              <Button id="back-btn"
                 size="lg"
                 variant="secondary"
                 onClick={() => navigate("/dashboard")}
@@ -197,21 +197,21 @@ const AssignmentView = () => {
             </div>
           ) : assignment.status === "În așteptarea trimiterii" ? (
             <div className="d-flex gap-5">
-              <Button
+              <Button id="submit-btn"
                 size="lg"
                 onClick={() => save(assignmentStatuses[1].status)}
               >
                 Depune Lucrarea
               </Button>
-              <Button
+              <Button id="back-btn"
                 size="lg"
                 variant="secondary"
                 onClick={() => navigate("/dashboard")}
               >
-                Back
+                Mergi Înapoi
               </Button>
             </div>
-          ) : (
+          ) : assignment.status === "Necesită Modificări" ? (
             <div className="d-flex gap-5">
               <Button
                 size="lg"
@@ -227,9 +227,18 @@ const AssignmentView = () => {
                 Mergi Înapoi
               </Button>
             </div>
+          ) : (
+            <div className="d-flex gap-5">
+              <Button id="back-btn"
+                size="lg"
+                variant="secondary"
+                onClick={() => navigate("/dashboard")}
+              >
+                Mergi Înapoi
+              </Button>
+            </div>
           )}
-
-          <CommentContainer assignmentId={assignmentId} />
+          <CommentContainer id="comment-container" assignmentId={assignmentId} />
         </>
       ) : (
         <></>
