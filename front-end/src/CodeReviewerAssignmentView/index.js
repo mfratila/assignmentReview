@@ -67,7 +67,13 @@ const CodeReviewerAssignmentView = () => {
     <Container className="mt-5">
       <Row className="d-flex align-items-center">
         <Col id="assignment-title">
-          {assignment.number ? <h1>Assignment {assignment.number} - {assignment.title}</h1> : <></>}
+          {assignment.number ? (
+            <h1>
+              Assignment {assignment.number} - {assignment.title}
+            </h1>
+          ) : (
+            <></>
+          )}
         </Col>
         <Col>
           <StatusBadge text={assignment.status}></StatusBadge>
@@ -114,13 +120,14 @@ const CodeReviewerAssignmentView = () => {
                 onChange={(e) =>
                   updateAssignment("codeReviewVideoUrl", e.target.value)
                 }
-                value={assignment.codeReviewVideoUrl || ''}
+                value={assignment.codeReviewVideoUrl || ""}
               />
             </Col>
           </Form.Group>
           <div className="d-flex gap-5">
-            {assignment.status === assignmentStatuses[4].status ? (
-              <Button id="take-to-review-btn"
+            {assignmentStatuses.length > 4 && assignment.status === assignmentStatuses[4].status ? (
+              <Button
+                id="take-to-review-btn"
                 size="lg"
                 variant="secondary"
                 onClick={() => save(assignmentStatuses[2].status)}
@@ -128,7 +135,8 @@ const CodeReviewerAssignmentView = () => {
                 Revendică
               </Button>
             ) : (
-              <Button id="complete-review-btn"
+              <Button
+                id="complete-review-btn"
                 size="lg"
                 onClick={() => save(assignmentStatuses[4].status)}
               >
@@ -136,8 +144,9 @@ const CodeReviewerAssignmentView = () => {
               </Button>
             )}
 
-            {assignment.status === assignmentStatuses[3].status ? (
-              <Button id="take-review-again-btn"
+            {assignmentStatuses.length > 3 && assignment.status === assignmentStatuses[3].status ? (
+              <Button
+                id="take-review-again-btn"
                 size="lg"
                 variant="secondary"
                 onClick={() => save(assignmentStatuses[2].status)}
@@ -145,7 +154,8 @@ const CodeReviewerAssignmentView = () => {
                 Revendică din nou
               </Button>
             ) : (
-              <Button id="decline-assignment-btn"
+              <Button
+                id="decline-assignment-btn"
                 size="lg"
                 variant="danger"
                 onClick={() => save(assignmentStatuses[3].status)}
@@ -154,7 +164,8 @@ const CodeReviewerAssignmentView = () => {
               </Button>
             )}
 
-            <Button id="back-btn"
+            <Button
+              id="back-btn"
               size="lg"
               variant="secondary"
               onClick={() => navigate("/dashboard")}

@@ -20,6 +20,7 @@ const CommentContainer = (props) => {
   };
   const [comment, setComment] = useState(emptyComment);
   const [comments, setComments] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useInterval(() => {
     updateCommentTimeDisplay();
@@ -40,6 +41,12 @@ const CommentContainer = (props) => {
   }
 
   function submitComment() {
+    if (comment.text.trim() === "") {
+      setErrorMessage("Comment text cannot be empty.");
+      return;
+    }
+    setErrorMessage(""); // Clear error message on valid input
+
     if (comment.id) {
       ajax(`/api/comments/${comment.id}`, "put", user.jwt, comment).then(
         (commentData) => {
@@ -65,7 +72,11 @@ const CommentContainer = (props) => {
 
   function handleEditComment(commentId) {
     const i = comments.findIndex((comment) => comment.id === commentId);
-    console.log("I've been told to edit this comment", comments[i]);
+    if (comments[i].text.trim() === "") {
+      setErrorMessage("Comment text cannot be empty.");
+      return;
+    }
+
     const commentCopy = {
       id: comments[i].id,
       text: comments[i].text,
@@ -74,13 +85,14 @@ const CommentContainer = (props) => {
       createdDate: comments[i].createdDate,
     };
     setComment(commentCopy);
+    setErrorMessage(""); // Clear error message on valid input
+
     if (commentInputRef.current) {
       commentInputRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }
 
   function handleDeleteComment(commentId) {
-    console.log("I've been told to delete this comment", commentId);
     ajax(`/api/comments/${commentId}`, "delete", user.jwt).then((msg) => {
       const commentsCopy = [...comments];
       const i = commentsCopy.findIndex((comment) => comment.id === commentId);
@@ -119,6 +131,7 @@ const CommentContainer = (props) => {
           onChange={(e) => updateComment(e.target.value)}
           value={comment.text}
         ></textarea>
+        {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
         <Button onClick={() => submitComment()}>Adaugă Comentariu</Button>
       </div>
       <div className="mt-5">
@@ -126,6 +139,7 @@ const CommentContainer = (props) => {
           <Comment
             key={comment.id}
             id={`comment-${index}`}
+            commentId={comment.id}
             createdDate={comment.createdDate}
             createdBy={comment.createdBy}
             text={comment.text}

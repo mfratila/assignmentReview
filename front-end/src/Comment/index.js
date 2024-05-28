@@ -10,6 +10,7 @@ const Comment = (props) => {
 
   const {
     id,
+    commentId,
     createdDate,
     createdBy,
     text,
@@ -42,13 +43,13 @@ const Comment = (props) => {
           {decodedJwt.sub === createdBy.username ? (
             <>
               <div id="edit-comment"
-                onClick={() => emitEditComment(id)}
+                onClick={() => emitEditComment(commentId)}
                 style={{ cursor: "pointer", color: "blue" }}
               >
                 edit
               </div>
               <div id="delete-comment"
-                onClick={() => emitDeleteComment(id)}
+                onClick={() => emitDeleteComment(commentId)}
                 style={{ cursor: "pointer", color: "red" }}
               >
                 delete

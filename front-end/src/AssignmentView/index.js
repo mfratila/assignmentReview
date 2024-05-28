@@ -181,6 +181,7 @@ const AssignmentView = () => {
                 <Col sm="9" md="8" lg="6">
                   <a
                     href={assignment.codeReviewVideoUrl}
+                    target="_blank"
                     style={{ fontWeight: "bold" }}
                   >
                     {assignment.codeReviewVideoUrl}

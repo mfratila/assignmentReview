@@ -68,7 +68,7 @@ public class AssignmentService {
         if (assignment.getNumber() != null){
             AssignmentEnum assignmentEnum = AssignmentEnum.findByNumber(assignment.getNumber());
             assignment.setTitle(assignmentEnum.getAssignmentName());
-            assignment.setDescription(assignmentEnum.getAssignmentSubtitle());
+            assignment.setSubtitle(assignmentEnum.getAssignmentSubtitle());
             assignment.setDescription(assignmentEnum.getAssignmentDesc());
         }
         return assignmentRepository.save(assignment);
