@@ -4,7 +4,7 @@ import actions from '../utils/actions.mjs';
 class CodeReviewerAssignmmentViewPage {
 
     get pageTitle() {
-        return $('$assignment-title');
+        return $('#assignment-title');
     }
 
     get statusBadge() {
@@ -45,7 +45,8 @@ class CodeReviewerAssignmmentViewPage {
     }
 
     async validateStatusBadgeText(value) {
-        await actions.selectElementAndEnterText(this.statusBadge, value);
+        await browser.pause(2000);
+        await actions.validateElementText(this.statusBadge, value);
     }
 
     async validateGithubUrl(value) {

@@ -69,7 +69,7 @@ const CodeReviewerAssignmentView = () => {
         <Col>
           {assignment.number ? (
             <h1 id="assignment-title">
-              Assignment {assignment.number} - {assignment.title}
+              Lucrarea #{assignment.number} - {assignment.title}
             </h1>
           ) : (
             <></>

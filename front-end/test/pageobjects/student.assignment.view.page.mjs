@@ -41,7 +41,8 @@ class StudentAssignmentViewPage {
     }
 
     async validateStatusBadgeText(text) {
-        await actions.selectElementAndEnterText(this.statusBadge, text);
+        await browser.pause(2000);
+        await actions.validateElementText(this.statusBadge, text);
     }
 
     async fillGithubUrlInput(text) {

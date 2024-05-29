@@ -76,6 +76,10 @@ async editAssignment(number) {
     await actions.clickElement(this.getEditAssignmentBtnByNumber(number));
 }
 
+async createNewAssignment() {
+    await actions.clickElement(this.createNewAssignmentBtn);
+}
+
 }
 
 export default new StudentDashboardPage();

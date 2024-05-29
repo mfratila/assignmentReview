@@ -124,11 +124,11 @@ class CodeReviewerDashboardPage {
         await actions.validateElementText(this.getInReviewGithubUrlByNumer(number), value);
     }
 
-    async validateInReviewAssignmentGithubUrl(number, value) {
+    async validateAwaitingReviewAssignmentGithubUrl(number, value) {
         await actions.validateElementText(this.getAwaitingReviewGithubUrlByNumer(number), value);
     }
 
-    async validateInReviewAssignmentGithubUrl(number, value) {
+    async validateNeedsUpdateAssignmentGithubUrl(number, value) {
         await actions.validateElementText(this.getNeedsUpdateGithubUrlByNumer(number), value);
     }
 
@@ -136,11 +136,11 @@ class CodeReviewerDashboardPage {
         await actions.validateElementText(this.getInReviewGithubBranchByNumer(number), value);
     }
 
-    async validateInReviewAssignmentBranch(number, value) {
+    async validateAwaitingReviewAssignmentBranch(number, value) {
         await actions.validateElementText(this.getAwaitingReviewGithubBranchByNumer(number), value);
     }
 
-    async validateInReviewAssignmentBranch(number, value) {
+    async validateNeedsUpdateAssignmentBranch(number, value) {
         await actions.validateElementText(this.getNeedsUpdateGithubBranchByNumer(number), value);
     }
 
@@ -148,11 +148,11 @@ class CodeReviewerDashboardPage {
         await actions.validateElementText(this.getInReviewStudentNameByNumer(number), value);
     }
 
-    async validateInReviewAssignmentStudentName(number, value) {
+    async validateAwaitingReviewAssignmentStudentName(number, value) {
         await actions.validateElementText(this.getAwaitingReviewStudentNameByNumer(number), value);
     }
 
-    async validateInReviewAssignmentStudentName(number, value) {
+    async validateNeedsUpdateAssignmentStudentName(number, value) {
         await actions.validateElementText(this.getNeedsUpdateStudentNameByNumer(number), value);
     }
 
