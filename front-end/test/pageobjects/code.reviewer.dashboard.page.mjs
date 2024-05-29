@@ -116,7 +116,7 @@ class CodeReviewerDashboardPage {
         await actions.validateElementText(this.getAwaitingReviewAssignmentStatusBadgeByNumer(number), text);
     }
 
-    async validateNeedsUpdateReviewAssignmentStatusBadge(number, text) {
+    async validateNeedsUpdateAssignmentStatusBadge(number, text) {
         await actions.validateElementText(this.getNeedsUpdateAssignmentStatusBadgeByNumer(number), text);
     }
 

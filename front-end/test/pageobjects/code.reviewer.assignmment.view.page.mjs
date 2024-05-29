@@ -66,7 +66,7 @@ class CodeReviewerAssignmmentViewPage {
     }
 
     async sendBackAssignment() {
-        await actions.clickElement(this.sendBackAssignment);
+        await actions.clickElement(this.sendBackAssignmentBtn);
     }
 
     async goBack() {
