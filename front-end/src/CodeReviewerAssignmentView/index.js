@@ -66,9 +66,9 @@ const CodeReviewerAssignmentView = () => {
   return (
     <Container className="mt-5">
       <Row className="d-flex align-items-center">
-        <Col id="assignment-title">
+        <Col>
           {assignment.number ? (
-            <h1>
+            <h1 id="assignment-title">
               Assignment {assignment.number} - {assignment.title}
             </h1>
           ) : (
