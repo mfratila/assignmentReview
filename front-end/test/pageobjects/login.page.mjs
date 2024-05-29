@@ -1,5 +1,6 @@
 import { $ } from '@wdio/globals'
 import Page from './page.mjs';
+import actions from '../utils/actions.mjs';
 
 /**
  * sub page containing specific selectors and methods for a specific page
@@ -25,9 +26,9 @@ class LoginPage extends Page {
      * e.g. to login using username and password
      */
     async login (username, password) {
-        await this.inputUsername.setValue(username);
-        await this.inputPassword.setValue(password);
-        await this.btnSubmit.click();
+        await actions.selectElementAndEnterText(this.inputUsername, username);
+        await actions.selectElementAndEnterText(this.inputPassword, password);
+        await actions.clickElement(this.btnSubmit);
     }
 
     /**

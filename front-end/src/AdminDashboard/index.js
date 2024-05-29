@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ajax from "../Services/fetchService";
 import { useUser } from "../UserProvider";
 import Table from "react-bootstrap/Table";
+import NavigationBar from '../Navbar/index.js';
 import { Button } from "react-bootstrap";
 import "./style.css";
 import { useNavigate } from "react-router";
@@ -33,13 +34,8 @@ const AdminDashboard = () => {
 
   return (
     <>
+    <NavigationBar />
       <div className="page-title-container">
-      <div className="d-flex justify-content-end">
-            <Button id='logout-btn' variant="secondary" onClick={() => {
-              user.setJwt(null);
-              navigate("/login");
-            }}>Logout</Button>
-          </div>
         <div className="container mt-5 text-center">
           <h1 id="dashboard-title" className="display-3 font-weight-bold custom-title">
             Tabel de Bord Administrator

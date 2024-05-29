@@ -1,12 +1,8 @@
 import { $ } from '@wdio/globals';
 import Page from './page.mjs';
+import actions from '../utils/actions.mjs';
 
 class AdminDashboardPage extends Page {
-
-    // elements
-    get logutBtn() {
-        return $('#logout-btn');
-    }
 
     get dashboardTitle() {
         return $('#dashboard-title');
@@ -44,6 +40,10 @@ class AdminDashboardPage extends Page {
         return $(`#user-table-entry-${index} > #user-fullname`);
     }
 
+    modifyUserByIndex(index) {
+        return $(`#user-table-entry-${index} > td >  #edit-user-btn`)
+    }
+
     // methods
 
 
@@ -56,10 +56,34 @@ class AdminDashboardPage extends Page {
 
     async validatePageTitle() {
         await expect(this.dashboardTitle).toBeDisplayed();
+        await actions.validateElementText(this.dashboardTitle, "Tabel de Bord Administrator", "strings do not match");
+    }
+
+    async createNewUser() {
+        await actions.clickElement(this.createUserBtn);
     }
 
     async validateUserId(index, value) {
-        await expect(this.userIdByIndex(index)).toContain(expect.stringContaining(value));
+        await expect(this.userIdByIndex(index)).toBeDisplayed();
+        await actions.validateElementText(this.userIdByIndex(index), value, "id does not match");
+    }
+
+    async validateUsername(index, value) {
+        await expect(this.usernameByIndex(index)).toBeDisplayed();
+        await actions.validateElementText(this.usernameByIndex(index), value, "username does not match");
+    }
+
+    async validateUserFullName(index, value) {
+        await expect(this.userFullNameByIndex(index)).toBeDisplayed();
+        await actions.validateElementText(this.userFullNameByIndex(index), value, "full name does not match");
+    }
+
+    async validateUserAuthority(index, value) {
+        await expect(this.userAuthorityByIndex(index)).toBeDisplayed();
+        await actions.validateElementText(this.userAuthorityByIndex(index), value, "authority does not match");
+    }
+    async editUserByIndex(index) {
+        await actions.clickElement(this.modifyUserByIndex(index));
     }
 }
 

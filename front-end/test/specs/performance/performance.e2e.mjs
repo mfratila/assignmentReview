@@ -1,9 +1,14 @@
 /* eslint-disable no-undef */
-const { browser, expect } = require('@wdio/globals')
-const LoginPage = require('../pageobjects/login.page')
-const HomePage = require('../pageobjects/home.page')
-const fs = require('fs');
-const path = require('path');
+import { browser } from '@wdio/globals';
+import loginPage from '../../pageobjects/login.page.mjs';
+import homePage from '../../pageobjects/home.page.mjs';
+import { existsSync, mkdirSync, writeFile } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import testdata from '../../utils/testdata.json'  with { type: "json" }
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 describe('My Login application', () => {
     before(async () => {
@@ -15,21 +20,21 @@ describe('My Login application', () => {
     });
     
     it('should login with valid credentials and measure performance', async () => {
-        await LoginPage.open();
+        await loginPage.open();
         const loginMetrics = await browser.getMetrics();
         console.log('Login Page Metrics:', loginMetrics);
 
-        await LoginPage.login('mihai.fratila01@gmail.com', '12345678');
-        await expect(HomePage.welcomeText).toBeDisplayed();
-        await expect(HomePage.platformDescriptionText).toBeDisplayed();
+        await loginPage.login(testdata.studentUsername, testdata.password);
+        await homePage.validateHomePageTitle();
 
         const homeMetrics = await browser.getMetrics();
         console.log('Home Page Metrics:', homeMetrics);
+
         await browser.disablePerformanceAudits();
 
-        const resultsDir = path.join(__dirname, '../test_performance_results');
-        if (!fs.existsSync(resultsDir)){
-            fs.mkdirSync(resultsDir, { recursive: true });
+        const resultsDir = join(__dirname, '../../test_performance_results');
+        if (!existsSync(resultsDir)){
+            mkdirSync(resultsDir, { recursive: true });
         }
 
         const combinedMetrics = [
@@ -39,9 +44,9 @@ describe('My Login application', () => {
         ];
 
         const csvContent = combinedMetrics.map(e => e.join(',')).join('\n');
-        const filePath = path.join(resultsDir, 'performance_metrics.csv');
+        const filePath = join(resultsDir, 'performance_metrics.csv');
 
-        fs.writeFile(filePath, csvContent, err => {
+        writeFile(filePath, csvContent, err => {
             if (err) {
                 console.error('Error writing to CSV file', err);
             } else {
