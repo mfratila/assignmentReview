@@ -7,7 +7,7 @@ import { useInterval } from "../util/useInterval.js";
 import dayjs from "dayjs";
 
 const CommentContainer = (props) => {
-  const { assignmentId } = props;
+  const { assignmentId, id } = props;
   const user = useUser();
   const commentInputRef = useRef(null);
 
@@ -73,7 +73,7 @@ const CommentContainer = (props) => {
   function handleEditComment(commentId) {
     const i = comments.findIndex((comment) => comment.id === commentId);
     if (comments[i].text.trim() === "") {
-      setErrorMessage("Comment text cannot be empty.");
+      setErrorMessage("Textul comentariului nu poate fi gol!");
       return;
     }
 
@@ -123,7 +123,7 @@ const CommentContainer = (props) => {
 
   return (
     <>
-      <div className="mt-4">
+      <div id={id} className="mt-4">
         <textarea
           ref={commentInputRef}
           id="commentInput"
@@ -132,7 +132,7 @@ const CommentContainer = (props) => {
           value={comment.text}
         ></textarea>
         {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
-        <Button onClick={() => submitComment()}>Adaugă Comentariu</Button>
+        <Button id="submit-comment-btn" onClick={() => submitComment()}>Adaugă Comentariu</Button>
       </div>
       <div className="mt-5">
         {comments.map((comment, index) => (

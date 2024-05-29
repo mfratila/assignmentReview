@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ajax from "../Services/fetchService";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Row, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserProvider";
 import NavigationBar from "../Navbar";
@@ -27,15 +27,21 @@ const Dashboard = () => {
 
   return (
     <>
-    <NavigationBar id = "studentNavigationBar" />
-      <div style={{ margin: "2em" }}>
-        <Row>
-          <Col>
+      <NavigationBar id="studentNavigationBar" />
+      <Container style={{ margin: "2em" }}>
+        <Row className="mb-4">
+          <Col className="text-center">
+            <h1 id="page-title">Tabel de Bord Student</h1>
+            <hr />
           </Col>
         </Row>
         {assignments.length < 14 ? (
           <div className="mb-4">
-            <Button id="createAssignmentBtn" size="lg" onClick={() => createAssignment()}>
+            <Button
+              id="createAssignmentBtn"
+              size="lg"
+              onClick={() => createAssignment()}
+            >
               Trimite o nouă temă
             </Button>
           </div>
@@ -48,14 +54,18 @@ const Dashboard = () => {
             className="d-grid gap-5"
             style={{ gridTemplateColumns: "repeat(auto-fill, 18rem)" }}
           >
-            {assignments.map((assignment, index) => (
-              <StudentAssignmentCard key={assignment.id} id = {`studentAssignmentCard-${index}`} assignment={assignment} />
+            {assignments.map((assignment) => (
+              <StudentAssignmentCard
+                key={assignment.id}
+                id={`studentAssignmentCard-${assignment.number}`}
+                assignment={assignment}
+              />
             ))}
           </div>
         ) : (
           <></>
         )}
-      </div>
+      </Container>
     </>
   );
 };

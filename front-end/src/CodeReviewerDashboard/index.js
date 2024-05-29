@@ -47,12 +47,13 @@ const CodeReviewerDashboard = () => {
     <>
       <NavigationBar />
       <Container>
-        <Row>
-          <Col className="mt-4 mb-4">
-            <h1 id="dashboard-title">Tabel de bord Profesori</h1>
+      <Row className="mb-4">
+          <Col className="text-center">
+            <h1 id="page-title">Tabel de Bord Revizuitor Cod</h1>
+            <hr />
           </Col>
         </Row>
-        <div className="assignment-wrapper in-review">
+        <div id="in-review-section" className="assignment-wrapper in-review">
           <div className="h3 px-2 assignment-wrapper-title">In Revizuire</div>
           {assignments &&
           assignments.filter((assignment) => assignment.status === "In Revizuire")
@@ -64,7 +65,7 @@ const CodeReviewerDashboard = () => {
               {assignments
                 .filter((assignment) => assignment.status === "In Revizuire")
                 .map((assignment, index) => (
-                  <CodeReviewerAssignmentCard id={`in-review-assignment-card-${index}`}
+                  <CodeReviewerAssignmentCard key={index} id={`in-review-assignment-card-${assignment.number}`}
                     assignment={assignment}
                     buttonAction={editReview}
                     buttonActionName={"Modifică"}
@@ -75,7 +76,7 @@ const CodeReviewerDashboard = () => {
             <div id="no-in-review-assignment-found-text">Nici o lucrare găsită</div>
           )}
         </div>
-        <div className="assignment-wrapper submitted">
+        <div id="awaiting-review-section" className="assignment-wrapper submitted">
           <div className="h3 px-2 assignment-wrapper-title">
             Așteaptă Revizuire
           </div>
@@ -100,7 +101,7 @@ const CodeReviewerDashboard = () => {
                   else return 1;
                 })
                 .map((assignment, index) => (
-                  <CodeReviewerAssignmentCard id={`sent-assignment-card-${index}`}
+                  <CodeReviewerAssignmentCard key={index} id={`sent-assignment-card-${assignment.number}`}
                     assignment={assignment}
                     buttonAction={claimAssignment}
                     buttonActionName={"Revendică"}
@@ -111,7 +112,7 @@ const CodeReviewerDashboard = () => {
             <div id="no-sent-assignment-found-text">Nici o lucrare găsită</div>
           )}
         </div>
-        <div className="assignment-wrapper needs-update">
+        <div id="needs-update-section" className="assignment-wrapper needs-update">
           <div className="h3 px-2 assignment-wrapper-title">
             Necesită Modificări
           </div>
@@ -126,7 +127,7 @@ const CodeReviewerDashboard = () => {
               {assignments
                 .filter((assignment) => assignment.status === "Necesită Modificări")
                 .map((assignment, index) => (
-                  <CodeReviewerAssignmentCard id={`needs-update-assignment-card-${index}`}
+                  <CodeReviewerAssignmentCard key={index} id={`needs-update-assignment-card-${assignment.number}`}
                     assignment={assignment}
                     buttonAction={editReview}
                     buttonActionName={"Modifică"}

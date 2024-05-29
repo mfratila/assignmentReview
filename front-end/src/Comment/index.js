@@ -37,9 +37,9 @@ const Comment = (props) => {
 
   return (
     <>
-      <div className="comment-bubble" key={id}>
+      <div id={id} className="comment-bubble" key={id}>
         <div className="d-flex gap-5" style={{ fontWeight: "bold" }}>
-          <div>{`${createdBy.name}: `}</div>
+          <div id="comment-created-by">{`${createdBy.name}: `}</div>
           {decodedJwt.sub === createdBy.username ? (
             <>
               <div id="edit-comment"
@@ -60,12 +60,13 @@ const Comment = (props) => {
           )}
         </div>
         <div id="comment-text">{text}</div>
-      </div>
-      <div id="posted-time"
+        <div className="mt-2" id="posted-time"
         style={{ marginTop: "-0.9em", marginLeft: "1.4em", fontSize: "14px" }}
       >
         {commentRelativeTime ? `Posted ${commentRelativeTime}`: ""}
       </div>
+      </div>
+
     </>
   );
 };

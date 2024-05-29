@@ -214,7 +214,7 @@ const AssignmentView = () => {
             </div>
           ) : assignment.status === "Necesită Modificări" ? (
             <div className="d-flex gap-5">
-              <Button
+              <Button id='resend-btn'
                 size="lg"
                 onClick={() => save(assignmentStatuses[5].status)}
               >

@@ -24,7 +24,7 @@ const StudentAssignmentCard = ({id, assignment}) => {
                     <Card.Text id='github-url-text' style={{ marginTop: "1em" }}>
                             <b>GitHub URL:</b> {assignment.githubUrl}
                         </Card.Text>
-                        <Card.Text d='branch-text' style={{ marginTop: "1em" }}>
+                        <Card.Text id='branch-text' style={{ marginTop: "1em" }}>
                         <b>Branch:</b> {assignment.branch}
                         </Card.Text>
                     <Button id='navigate-to-assignment-btn'
