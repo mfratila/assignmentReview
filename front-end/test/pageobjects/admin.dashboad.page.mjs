@@ -1,4 +1,4 @@
-import { $ } from '@wdio/globals';
+import { $, $$ } from '@wdio/globals';
 import Page from './page.mjs';
 import actions from '../utils/actions.mjs';
 
@@ -18,6 +18,10 @@ class AdminDashboardPage extends Page {
 
     get tableTitle() {
         return $('#table-title');
+    }
+
+    get listOfUsers() {
+        return $$('#users-table > tbody > tr');
     }
 
     tableRowByIndex(index) {
@@ -42,6 +46,18 @@ class AdminDashboardPage extends Page {
 
     modifyUserByIndex(index) {
         return $(`#user-table-entry-${index} > td >  #edit-user-btn`)
+    }
+
+    usernameByText(text) {
+        return $(`//td[contains(text(), "${text}") and @id="user-username"]`);
+    }
+
+    roleByText(text) {
+        return $(`//td[contains(text(), "${text}") and @id="user-authority"]`);
+    }
+
+    fullNameByText(text) {
+        return $(`//td[contains(text(), "${text}") and @id="user-fullname"]`);
     }
 
     // methods
@@ -84,6 +100,18 @@ class AdminDashboardPage extends Page {
     }
     async editUserByIndex(index) {
         await actions.clickElement(this.modifyUserByIndex(index));
+    }
+
+    async validateUserIsPresentInTheTable(username, role, fullName) {
+        await expect(this.usernameByText(username)).toBeDisplayed();
+        await expect(this.roleByText(role)).toBeDisplayed();
+        await expect(this.fullNameByText(fullName)).toBeDisplayed();
+    }
+
+    async getLastIndex() {
+        const usersListLength = await this.listOfUsers;
+        console.log("length of users list: " + usersListLength.length);
+        return usersListLength.length - 1;
     }
 }
 
