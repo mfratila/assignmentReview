@@ -3,6 +3,7 @@ import { browser } from '@wdio/globals'
 class Actions {
 
     async selectElementAndEnterText(element, text) {
+        await element.scrollIntoView();
         await element.waitForDisplayed();
         await browser.pause(500);
         await element.setValue(text);
