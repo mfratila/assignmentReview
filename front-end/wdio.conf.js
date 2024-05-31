@@ -21,8 +21,13 @@ exports.config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './test/specs/**.js'
+        './test/specs/e2e/**.e2e.mjs'
     ],
+    suites: {
+        performance: [
+            './test/specs/performance/performance.e2e.mjs'
+        ]
+    },
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
@@ -51,6 +56,7 @@ exports.config = {
     //
     capabilities: [{
         browserName: 'chrome',
+        maxInstances: 1
     }],
 
     //

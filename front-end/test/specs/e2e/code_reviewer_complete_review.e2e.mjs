@@ -20,7 +20,7 @@ describe('Student assignment functionality', () => {
         await studentDashboardPage.validatePageTitle();
         await studentDashboardPage.createNewAssignment();
 
-        const assignmentNumber = "11";
+        const assignmentNumber = "12";
         const githubUrl = "https://github.com/some-repo";
         const githubBranch = "main"
 
@@ -29,7 +29,7 @@ describe('Student assignment functionality', () => {
         await studentAssignmentViewPage.validateStatusBadgeText("Trimis");
         await studentAssignmentViewPage.goBack();
 
-        await studentDashboardPage.validateAssignmentTitle(assignmentNumber, "Lucrarea #11");
+        await studentDashboardPage.validateAssignmentTitle(assignmentNumber, "Lucrarea #12");
         await studentDashboardPage.validateAssignmentStatusBadge(assignmentNumber, "Trimis");
         await studentDashboardPage.validateAssignmentGithubUrl(assignmentNumber, githubUrl);
         await studentDashboardPage.validateAssignmentBranch(assignmentNumber, githubBranch);
@@ -44,14 +44,14 @@ describe('Student assignment functionality', () => {
         await codeReviewerDashboard.validateAwaitingReviewAssignmentStatusBadge(assignmentNumber, "Trimis");
         await codeReviewerDashboard.modifyAwaitingReviewAssignment(assignmentNumber);
         await browser.pause(2000);
-        await codeReviewerDashboard.validateInReviewAssignmentTitle(assignmentNumber, "Lucrarea #11");
+        await codeReviewerDashboard.validateInReviewAssignmentTitle(assignmentNumber, "Lucrarea #12");
         await codeReviewerDashboard.validateInReviewAssignmentStatusBadge(assignmentNumber, "In Revizuire");
         await codeReviewerDashboard.validateInReviewAssignmentGithubUrl(assignmentNumber, githubUrl);
         await codeReviewerDashboard.validateInReviewAssignmentBranch(assignmentNumber, githubBranch);
         await codeReviewerDashboard.validateInReviewAssignmentStudentName(assignmentNumber, "Mihai Fratila");
         await codeReviewerDashboard.modifyInReviewAssignmment(assignmentNumber);
 
-        await codeReviewerAssignmentView.validatePageTitle("Lucrarea #11");
+        await codeReviewerAssignmentView.validatePageTitle("Lucrarea #12");
         await codeReviewerAssignmentView.validateStatusBadgeText("In Revizuire");
         await codeReviewerAssignmentView.validateGithubUrl(githubUrl);
         await codeReviewerAssignmentView.validateGithubBranch(githubBranch);

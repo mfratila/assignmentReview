@@ -31,6 +31,13 @@ class LoginPage extends Page {
         await actions.clickElement(this.btnSubmit);
     }
 
+    async validatePageElementsAreVisible() {
+        (await this.inputUsername).waitForDisplayed();
+        (await this.inputPassword).waitForDisplayed();
+        (await this.btnSubmit).waitForDisplayed();
+        (await this.btnSubmit).waitForClickable();
+    }
+
     /**
      * overwrite specific options to adapt it to page object
      */

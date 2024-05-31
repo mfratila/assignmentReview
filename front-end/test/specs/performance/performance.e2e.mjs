@@ -1,57 +1,58 @@
-/* eslint-disable no-undef */
-import { browser } from '@wdio/globals';
 import loginPage from '../../pageobjects/login.page.mjs';
 import homePage from '../../pageobjects/home.page.mjs';
-import { existsSync, mkdirSync, writeFile } from 'fs';
+import actions from '../../utils/actions.mjs';
+import navigationBar from '../../pageobjects/navbar.page.mjs';
+import { existsSync, mkdirSync, unlinkSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import testdata from '../../utils/testdata.json'  with { type: "json" }
+import testdata from '../../utils/testdata.json' with { type: "json" }
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const resultsDir = join(__dirname, './test_performance_results');
+if (!existsSync(resultsDir)) {
+    mkdirSync(resultsDir, { recursive: true });
+}
 
-describe('My Login application', () => {
+
+const iterationNumber = 5;
+
+
+describe('My Login application', async () => {
     before(async () => {
-        await browser.enablePerformanceAudits({
-            networkThrottling: 'online',
-            cpuThrottling: 0,
-            cacheEnabled: true
-        });
-    });
-    
-    it('should login with valid credentials and measure performance', async () => {
         await loginPage.open();
-        const loginMetrics = await browser.getMetrics();
-        console.log('Login Page Metrics:', loginMetrics);
+    })
+    for (let i = 1; i <= iterationNumber; i++) {
 
-        await loginPage.login(testdata.studentUsername, testdata.password);
-        await homePage.validateHomePageTitle();
-
-        const homeMetrics = await browser.getMetrics();
-        console.log('Home Page Metrics:', homeMetrics);
-
-        await browser.disablePerformanceAudits();
-
-        const resultsDir = join(__dirname, '../../test_performance_results');
-        if (!existsSync(resultsDir)){
-            mkdirSync(resultsDir, { recursive: true });
+        const csvFileName = `performance_metrics_${i}.csv`;
+        const filePath = join(resultsDir, csvFileName);
+        if (existsSync(filePath)) {
+            unlinkSync(filePath);
         }
 
-        const combinedMetrics = [
-            ['Page', 'Time to First Byte (TTFB)', 'First Contentful Paint (FCP)', 'Speed Index', 'Total Blocking Time (TBT)', 'Largest Contentful Paint (LCP)'],
-            ['Login Page', ...Object.values(loginMetrics)],
-            ['Home Page', ...Object.values(homeMetrics)]
-        ];
+        it('should login with valid credentials and measure performance on each page', async function () {
+            // Start timing before opening the login page
+            await loginPage.validatePageElementsAreVisible();
+            await loginPage.login(testdata.studentUsername, testdata.password);
+            const homePageStartTime = await actions.getInitialTime();
 
-        const csvContent = combinedMetrics.map(e => e.join(',')).join('\n');
-        const filePath = join(resultsDir, 'performance_metrics.csv');
+            await homePage.validateHomePageTitle();
+            const homePageElapsedTime = await actions.calculateElapsedTime(homePageStartTime);
 
-        writeFile(filePath, csvContent, err => {
-            if (err) {
-                console.error('Error writing to CSV file', err);
-            } else {
-                console.log('Successfully wrote performance data to CSV file:', filePath);
-            }
+            const logoutStartTime = await actions.getInitialTime();
+            await navigationBar.logout();
+            const logoutElapsedTime = await actions.calculateElapsedTime(logoutStartTime);
+
+            // Prepare CSV content
+            let combinedMetrics = [
+                ['Page', 'Transition Duration (ms)'],
+                ['Home Page', homePageElapsedTime],
+                ['Login Page', logoutElapsedTime]
+            ];
+
+            await actions.generateCsvFileFromMetrics(combinedMetrics, filePath)
         });
-    });
+    }
+
+    await actions.processPerformanceData(join(__dirname, "./test_performance_results"), "./PerformanceSummary.xlsx");
 });

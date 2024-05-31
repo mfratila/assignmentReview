@@ -24,4 +24,4 @@ yarn-error.log*
 
 /test/specs/__snapshots__
 .tmp
-/test/test_performance_results
+/test/specs/performance/test_performance_results
