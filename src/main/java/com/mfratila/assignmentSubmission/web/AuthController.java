@@ -45,8 +45,6 @@ public class AuthController {
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
-
     }
 
     @GetMapping("/validate")

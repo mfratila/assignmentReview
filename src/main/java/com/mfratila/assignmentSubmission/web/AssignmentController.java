@@ -66,7 +66,7 @@ public class AssignmentController {
                             "Assignment " + assignment.getNumber() + " has been assigned to a reviewer",
                             "Your assignment has been taken by the following reviewer: " + codeReviewer.getUsername());
                 }
-            }
+                }
         }
         Assignment updatedAssignment = assignmentService.save(assignment);
         return ResponseEntity.ok(updatedAssignment);
