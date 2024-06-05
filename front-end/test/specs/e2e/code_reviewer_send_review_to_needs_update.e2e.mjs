@@ -9,7 +9,7 @@ import testdata from '../../utils/testdata.json'  with { type: "json" }
 
 describe('Student assignment functionality', () => {
 
-    it('a student should be able to create a new assignment and send it to review, the code reviewer to finish review and change the status to needs update', async () => {
+    it('a code reviewer should be able to review an assignment and change its status to needs update and send it back to the student', async () => {
         await loginPage.open()
 
         await loginPage.login(testdata.studentUsername, testdata.password);
