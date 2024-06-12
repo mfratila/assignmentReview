@@ -118,8 +118,8 @@ const AssignmentView = () => {
                 variant="info"
                 title={
                   assignment.number !== null
-                    ? `Assignment ${assignment.number}`
-                    : "Select an Assignment"
+                    ? `Lucrarea  #${assignment.number}`
+                    : "Selectează numărul lucrării"
                 }
                 onSelect={(selectedElement) => {
                   setErrorMessage(""); // Clear error message on selection

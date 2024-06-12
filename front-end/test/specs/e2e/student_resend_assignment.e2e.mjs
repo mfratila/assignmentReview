@@ -20,7 +20,7 @@ describe('Student assignment functionality', () => {
         await studentDashboardPage.validatePageTitle();
         await studentDashboardPage.createNewAssignment();
 
-        const assignmentNumber = "9";
+        const assignmentNumber = "5";
         const githubUrl = "https://github.com/some-repo";
         const githubBranch = "main"
 
@@ -29,7 +29,7 @@ describe('Student assignment functionality', () => {
         await studentAssignmentViewPage.validateStatusBadgeText("Trimis");
         await studentAssignmentViewPage.goBack();
 
-        await studentDashboardPage.validateAssignmentTitle(assignmentNumber, "Lucrarea #9");
+        await studentDashboardPage.validateAssignmentTitle(assignmentNumber, "Lucrarea #5");
         await studentDashboardPage.validateAssignmentStatusBadge(assignmentNumber, "Trimis");
         await studentDashboardPage.validateAssignmentGithubUrl(assignmentNumber, githubUrl);
         await studentDashboardPage.validateAssignmentBranch(assignmentNumber, githubBranch);
@@ -46,7 +46,7 @@ describe('Student assignment functionality', () => {
         await browser.pause(2000);
         await codeReviewerDashboard.modifyInReviewAssignmment(assignmentNumber);
 
-        await codeReviewerAssignmentView.validatePageTitle("Lucrarea #9");
+        await codeReviewerAssignmentView.validatePageTitle("Lucrarea #5");
         await codeReviewerAssignmentView.validateStatusBadgeText("In Revizuire");
         await codeReviewerAssignmentView.validateGithubUrl(githubUrl);
         await codeReviewerAssignmentView.validateGithubBranch(githubBranch);
@@ -56,7 +56,7 @@ describe('Student assignment functionality', () => {
         await codeReviewerAssignmentView.goBack();
 
         await browser.pause(2000);
-        await codeReviewerDashboard.validateNeedsUpdateAssignmentTitle(assignmentNumber, "Lucrarea #9");
+        await codeReviewerDashboard.validateNeedsUpdateAssignmentTitle(assignmentNumber, "Lucrarea #5");
         await codeReviewerDashboard.validateNeedsUpdateAssignmentStatusBadge(assignmentNumber, "Necesită Modificări");
         await codeReviewerDashboard.validateNeedsUpdateAssignmentGithubUrl(assignmentNumber, githubUrl);
         await codeReviewerDashboard.validateNeedsUpdateAssignmentBranch(assignmentNumber, githubBranch);

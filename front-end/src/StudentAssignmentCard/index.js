@@ -33,7 +33,7 @@ const StudentAssignmentCard = ({id, assignment}) => {
                             navigate(`/assignments/${assignment.id}`);
                         }}
                     >
-                        Edit
+                        Modifică
                     </Button>
                 </Card.Body>
             </Card>
